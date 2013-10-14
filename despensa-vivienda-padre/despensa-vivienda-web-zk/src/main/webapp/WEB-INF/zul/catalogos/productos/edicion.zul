@@ -1,0 +1,161 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+
+<zk xmlns:n="native">
+
+     <div  apply="org.zkoss.bind.BindComposer"
+				viewModel="@id('vm')			
+					@init('org.icabanas.despensa.zk.catalogos.productos.CatalogoProductosVM',accion=arg.modo)"
+				validationMessages="@id('vmsgs')"
+				form="@id('fx') @load(vm.seleccionado) @save(vm.seleccionado, before='actualizar') @validator(vm.validador)">
+		
+		<div sclass="alert alert-error" visible="@load(not empty vm.errores)">
+			<n:h5>${labels.mensaje.errores}</n:h5>
+			<listbox model="@load(vm.errores)" sclass="z-listbox-errores">
+				<template name="model" var="error">
+					<listitem>
+						<listcell>
+							<label value="@load(error.mensaje)" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</div>				
+		<n:div class="row-fluid">
+	    	<n:div class="block">
+	            <n:div class="navbar navbar-inner block-header">
+	                <n:div class="muted pull-left"><label value="${labels.producto.titulo.edicion}" if="${arg.modo eq 'edicion'}" /><label value="${labels.producto.titulo.detalle}" if="${arg.modo eq 'detalle'}" /></n:div>                
+	            </n:div>
+	            <n:div class="block-content collapse in">
+	                <n:div class="span12">
+	                    <n:form class="form-inline" >
+	                    	<n:fieldset>
+	                    		<separator />													
+								<separator />	
+								<n:div class="control-group">
+									<n:label class="control-label" for="codigo">${labels.producto.codigo}</n:label>									
+									<n:em class="mi-text-info"><label value="${labels.texto.obligatorio}" if="${arg.modo eq 'edicion'}" /></n:em>
+	                              	<n:div class="controls">
+	                                	<textbox sclass="input-small" readonly="true" value="@load(vm.seleccionado.codigo)" />
+	                              	</n:div>
+	                            </n:div>
+	                            <div sclass="@load(empty vmsgs['nombre'] ? 'control-group' : 'control-group error')">
+									<n:label class="control-label" for="nombre">${labels.producto.nombre}</n:label>
+									<n:em class="mi-text-info"><label value="${labels.texto.obligatorio}" if="${arg.modo eq 'edicion'}" /></n:em>
+									<n:div class="controls">
+	                                	<textbox readonly="${arg.modo eq 'detalle'}" value="@bind(vm.seleccionado.nombre)"/>
+	                                	<label value="@bind(vmsgs['nombre'])" sclass="texto-error" />
+	                              	</n:div>
+	                            </div>
+								<n:div class="control-group">
+									<n:label class="control-label" for="marca">${labels.producto.marca}</n:label>
+									<n:em class="text-info"><label value="${labels.texto.opcional}" if="${arg.modo eq 'edicion'}" /></n:em>
+	                              	<n:div class="controls">
+	                                	<listbox id="marca" model="@load(vm.marcas)" mold="select"
+												selectedItem="@bind(vm.seleccionado.marca)"
+												if="${arg.modo eq 'edicion'}">
+											<template name="model" var="marca">
+												<listitem label="@load(marca.nombre)" value="@load(marca.id)" />
+											</template>
+										</listbox>
+										<textbox id="marca" readonly="true" value="@bind(vm.seleccionado.marca.nombre)"
+											if="${arg.modo eq 'detalle'}"/>
+	                              	</n:div>
+	                            </n:div>
+								<n:div class="form-actions">
+									<button id="btnCancelar" label="${labels.boton.cancelar}" sclass="btn" zclass="mi-zk-button" onClick="@command('cancelar')" if="${arg.modo eq 'edicion'}" />
+									<button id="btnVolver" label="${labels.boton.volver}" sclass="btn btn-primary" zclass="mi-zk-button" onClick="@command('volver')" if="${arg.modo eq 'detalle'}" />
+									<button id="btnGuardar" label="${labels.boton.actualizar}" autodisable="self,btnCancelar"  sclass="btn btn-primary" zclass="mi-zk-button" onClick="@command('actualizar')" if="${arg.modo eq 'edicion'}" />
+	                            </n:div>
+							</n:fieldset>
+	                    </n:form>	                    
+	                </n:div>                
+	             </n:div>
+	        </n:div>
+	    </n:div>	    				
+		
+	</div>
+	
+</zk>
+
+<!--
+	<window border="none" apply="org.zkoss.bind.BindComposer"
+				viewModel="@id('vm') @init('org.icabanas.despensa.zk.catalogos.productos.CatalogoProductosVM',accion=arg.modo)">
+		<separator />
+		<span width="100%">
+			<div sclass="sectionTitle">
+				<separator />
+				<label value="${labels.menu.home}"
+					sclass="sectionTitleLabel" />
+				<label value="${labels.miga.separador}"
+					sclass="sectionTitleLabel" />
+				<label value="${labels.menu.administracion.$}"
+					sclass="sectionTitleLabel" />	
+				<label value="${labels.miga.separador}"
+					sclass="sectionTitleLabel" />	
+				<label value="${labels.menu.administracion.productos}"
+					sclass="sectionTitleLabel" />
+				<separator />
+			</div>
+		</span>
+		<panel width="100%" sclass="sectionPanel">
+			<panelchildren>
+				<separator />
+				<groupbox sclass="sectionGroupbox" closable="false">
+					<caption label="${labels.producto.titulo.edicion}" />
+					<grid sclass="vgrid">
+						<columns>
+							<column hflex="10%"></column>
+						</columns>
+						<rows>
+							<row>
+								<vlayout>
+									<hlayout>
+										<label value="${labels.producto.codigo}" sclass="flabel" />
+										<label value="${labels.texto.obligatorio}" sclass="flabel" />
+									</hlayout>
+									<textbox id="codigo" mold="rounded" width="10%" readonly="true" value="@bind(vm.seleccionado.codigo)"/>
+								</vlayout>							
+							</row>
+							<row>
+								<vlayout>
+									<hlayout>
+										<label value="${labels.producto.nombre}" sclass="flabel" />
+										<label value="${labels.texto.obligatorio}" sclass="flabel" />
+									</hlayout>
+									<textbox id="nombre" mold="rounded" width="20%" readonly="${arg.modo eq 'detalle'}" value="@bind(vm.seleccionado.nombre)"/>
+								</vlayout>
+							</row>
+							<row>
+								<vlayout>
+									<hlayout>
+										<label value="${labels.producto.marca}" sclass="flabel" />
+										<label value="${labels.texto.opcional}" sclass="flabel" />
+									</hlayout>
+									<combobox width="25%" mold="rounded" model="@load(vm.marcas)"
+											selectedItem="@bind(vm.seleccionado.marca)" readonly="true"
+											if="${arg.modo eq 'edicion'}">
+										<template name="model" var="marca">
+											<comboitem label="@load(marca.nombre)" value="@load(marca.id)" />
+										</template>
+									</combobox>
+									<textbox id="marca" mold="rounded" width="20%" readonly="${arg.modo eq 'detalle'}" value="@bind(vm.seleccionado.marca.nombre)"
+										if="${arg.modo eq 'detalle'}"/>
+								</vlayout>
+							</row>
+							<row align="right">
+								<hlayout>
+									<button id="btnCancelar" label="${labels.boton.cancelar}" sclass="mybutton button theme small" onClick="@command('cancelar')"/>
+									<button id="btnGuardar" label="${labels.boton.actualizar}" autodisable="self,btnCancelar"  sclass="mybutton button theme small" onClick="@command('actualizar')" 
+										if="${arg.modo eq 'edicion'}" />
+								</hlayout>
+							</row>
+						</rows>
+					</grid>
+				</groupbox>
+			</panelchildren>
+		</panel>
+		
+	</window>
+	
+</zk>
+-->

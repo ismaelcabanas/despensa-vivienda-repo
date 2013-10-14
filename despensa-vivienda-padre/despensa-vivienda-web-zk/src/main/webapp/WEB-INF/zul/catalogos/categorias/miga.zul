@@ -1,0 +1,17 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+
+<zk xmlns:n="native">
+
+	<n:ul class="breadcrumb">
+    	<n:i class="icon-chevron-left hide-sidebar"><n:a href='#' title="Hide Sidebar" rel='tooltip'> </n:a></n:i>
+       	<n:i class="icon-chevron-right show-sidebar" style="display:none;"><n:a href='#' title="Show Sidebar" rel='tooltip'><label value=" " /></n:a></n:i>
+       	<n:li>
+        	<n:a href="${pageContext.servletContext.contextPath}"><label value="${labels.menu.home}" /></n:a> <n:span class="divider"><label value="/" /></n:span>	
+       	</n:li>
+       	<n:li>
+        	<label value="${labels.menu.administracion.catalogo.$}" /> <n:span class="divider"><label value="/" /></n:span>	
+       	</n:li>
+       	<n:li class="active"><label value="${labels.menu.administracion.catalogo.categorias}" /></n:li>
+   	</n:ul>
+	
+</zk>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<!-- El scope de un bean por defecto es singleton, de forma que el contenedor de Spring
+    	crea una sola instancia del bean. El motivo de indicar el scope="prototype" en el bean action
+    	es para que cree una instancia del mismo en cada petición, de lo contrario, por ejemplo, si 
+    	fuese singleton, y se produjesen errores en algún campo del formulario, el error permanece 
+    	en sucesivas peticiones -->
+    
+    <bean id="parentAction" abstract="true" class="org.icabanas.despensa.web.actions.catalogos.CatalogoBaseAction">
+		
+	</bean>	
+    
+    <!-- Definición del action del catálogo de produtos -->	
+    <bean id="catalogoProductosAction" class="org.icabanas.despensa.web.actions.catalogos.productos.CatalogoProductosAction" scope="prototype">
+    	<property name="catalogoMarcas" ref="catalogoMarcas" />
+    	<property name="catalogoManager" ref="catalogoProductos" />
+    </bean>     
+    <bean id="catalogoProductosWrapperAction" class="org.icabanas.despensa.web.actions.catalogos.productos.CatalogoProductosStruts2WrapperAction" 
+    		parent="parentAction" scope="prototype" >
+    	<property name="accion" ref="catalogoProductosAction" />
+    </bean>
+
+	<!-- Definición del action del catálogo de marcas -->	
+    <bean id="catalogoMarcasAction" class="org.icabanas.despensa.web.actions.catalogos.marcas.CatalogoMarcasAction" scope="prototype">
+    	<property name="catalogoManager" ref="catalogoMarcas" />
+    </bean>     
+    <bean id="catalogoMarcasWrapperAction" class="org.icabanas.despensa.web.actions.catalogos.marcas.CatalogoMarcasStruts2WrapperAction" 
+    		parent="parentAction" scope="prototype" >
+    	<property name="accion" ref="catalogoMarcasAction" />
+    </bean>       
+</beans>
+
+

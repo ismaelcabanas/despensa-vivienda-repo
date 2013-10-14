@@ -1,0 +1,27 @@
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/theme" prefix="t"?>
+<zk>
+
+	<window id="ventanaPrincipal" border="none" height="100%" apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vm') @init('org.icabanas.despensa.zk.vistas.BaseVM')">		
+		<borderlayout id="borderLayoutPrincipal" width="100%" height="100%">
+			<north height="15%" border="none">
+				<include src="/WEB-INF/zul/cabecera.zul" />
+			</north>
+			<center border="none">
+				<borderlayout id="borderLayoutContenido" width="100%" height="100%">
+					<north border="none">
+						<include src="/WEB-INF/zul/menu.zul" />
+					</north>
+					<center border="none" self="@insert(contenido)">
+				
+					</center>	
+				</borderlayout>
+			</center> 				
+			<south height="10%" border="none">
+				<include src="/WEB-INF/zul/pie.zul" />
+			</south>
+		</borderlayout>
+	</window>
+		
+</zk>

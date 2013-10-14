@@ -1,0 +1,22 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+
+<zk xmlns:n="native">
+
+	<div>				
+		<n:div class="navbar">
+	       	<n:div class="navbar-inner">
+	               <!-- MIGA -->
+	               
+	               <include src="/WEB-INF/zul/catalogos/categorias/miga.zul" />
+	               
+	               <!-- /MIGA -->
+	       	</n:div>
+	    </n:div>	    	    
+	    
+	    <div id="contenido-form">
+	    
+	    	<include src="/WEB-INF/zul/catalogos/categorias/busqueda.zul" />
+	    	
+	    </div>
+    </div>	
+</zk>

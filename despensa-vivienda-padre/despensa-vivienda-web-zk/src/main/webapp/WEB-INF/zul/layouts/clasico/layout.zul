@@ -1,0 +1,70 @@
+
+<zk xmlns:n="native">
+
+	<n:link rel="stylesheet" type="text/css"	href="bootstrap/css/bootstrap.css"></n:link>
+	<n:link rel="stylesheet" type="text/css"	href="bootstrap/css/bootstrap-responsive.css"></n:link>
+	<n:link rel="stylesheet" type="text/css"	href="css/estilos.css"></n:link>
+	
+	<script>
+       function simulaLink(widget){
+       	var compId = '#' + widget;    
+       	$(compId).click();
+       }
+	</script>
+		
+		<!-- CABECERA -->
+        	
+        <include src="/WEB-INF/zul/layouts/clasico/cabecera.zul" />	
+
+		<!-- /CABECERA -->
+
+		<n:div class="container-fluid">
+            <n:div class="row-fluid">
+                <n:div class="span3" id="sidebar">
+                	
+                    <!-- MENU -->
+                    
+                    <include src="/WEB-INF/zul/layouts/clasico/menu.zul" />
+                    	
+                    <!-- /MENU -->
+                    
+                </n:div>
+                
+                <n:div class="span9" id="content">
+                	<!--
+                    <div class="row-fluid" apply="org.zkoss.bind.BindComposer"
+							viewModel="@id('vmContenido') @init('org.icabanas.despensa.zk.ContenidoVM')">
+					-->		
+      				<div class="row-fluid">
+							                              	   	
+                	   	<!-- MENSAJES USUARIO -->
+                	   	 
+                	   	 <include src="/WEB-INF/zul/comun/mensajes.zul" />
+					    
+					    <!-- /MENSAJES USUARIO -->
+					    
+                	   	<!-- CONTENIDO -->
+                
+                		<div id="contenido">							                			
+						    
+                		</div>
+                
+                		<!-- /CONTENIDO -->                                                               
+                    </div>                	
+                </n:div>
+            </n:div>
+            
+            <!--
+            <n:hr></n:hr>
+            <n:footer>
+                
+            </n:footer>
+            -->
+        </n:div>
+        <!--/.fluid-container-->
+
+        <n:script type="text/javascript" src="bootstrap/js/jquery-1.7.2.min.js"></n:script>
+		<n:script type="text/javascript" src="bootstrap/js/bootstrap.js"></n:script>        
+		<n:script type="text/javascript" src="js/scripts.js"></n:script>
+
+</zk>

@@ -1,0 +1,76 @@
+<?page title="Adminstracion Despensa con ZK 7" contentType="text/html;charset=UTF-8"?>
+<?page viewport="width=device-width,initial-scale=1.0"?>
+
+<?link rel="stylesheet" type="text/css"	href="/bootstrap/css/bootstrap.css" ?>
+<?link rel="stylesheet" type="text/css"	href="/bootstrap/css/bootstrap-responsive.css" ?>
+
+<zk xmlns:n="native">
+	
+	<div id="cabecera">
+		<n:h1>
+			<a zclass="brand">Despensa Admin</a>
+		</n:h1>
+	</div>
+	
+	<!--
+	<n:header>
+		<n:h1>
+			<a>Despensa Admin</a>
+		</n:h1>
+	</n:header>
+	-->
+	
+	<div id="menu-admin">
+		<menubar>
+			<menuitem  label="Configuracion" />
+			<menu  label="Usuario">
+				<menupopup>
+					<menuitem label="Perfil" />
+					<menuitem label="Desconectar" />
+				</menupopup>
+			</menu>
+		</menubar>
+	</div>
+			
+	<div id="menu-nav">
+		<menubar orient="vertical">
+			<menu  label="Administracion del Catalogo">
+				<menupopup>
+					<menuitem label="Catalogo de productos" />
+					<menuitem label="Catalogo de marcas" />
+				</menupopup>
+			</menu>
+			<menuitem  label="Gestion de la despensa" />
+		</menubar>
+	</div>		
+	
+	<div id="temas">
+		<n:i ></n:i> <label>Temas:</label>
+			<a id="grey" href="javascript: changeTheme('grey');"
+			style="background-color: #555555; border-color: #AAAAAA;"></a>
+			<a id="light-blue" href="javascript: changeTheme('light-blue');"
+			style="background-color: #8399b0;"></a>
+			<a id="red" href="javascript: changeTheme('red');"
+			style="background-color: #673232;"></a>		
+	</div>
+	
+	<div id="contenido">
+	
+		<div id="contenido-cabecera">
+			<n:h1>Panel de control</n:h1>			
+		</div>
+		
+		<div id="contendio-miga">
+			<a href="#" tooltip="btntip,after_center" >Home
+						<custom-attributes title="Go to Home" />
+						</a>
+			<a href="#">Dashboard</a>
+		</div>
+		
+		<include src="" />
+	</div>
+	
+	<div id="pie">
+	
+	</div>
+</zk>

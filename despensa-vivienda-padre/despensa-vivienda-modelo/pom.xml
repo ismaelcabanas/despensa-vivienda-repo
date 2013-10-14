@@ -1,0 +1,152 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.icabanas.despensa</groupId>
+    <artifactId>despensa-vivienda-padre</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>despensa-vivienda-modelo</artifactId>
+  <name>despensa-vivienda-modelo</name>
+
+  <properties>
+  	<hsqldb.version>1.8.0.10</hsqldb.version>
+  	<db.url>jdbc:hsqldb:file:${project.basedir}/target/db/build;shutdown=true</db.url>
+	<db.driverClassName>org.hsqldb.jdbcDriver</db.driverClassName>
+	<db.username>sa</db.username>
+	<db.password></db.password>
+  </properties>
+  
+  <dependencies>
+  <!-- 
+  	<dependency>
+  		<groupId>org.hibernate.javax.persistence</groupId>
+  		<artifactId>hibernate-jpa-2.0-api</artifactId>
+  		<version>1.0.1.Final</version>
+  		<scope>provided</scope>
+  	</dependency>
+  	 -->
+  	<dependency>
+  		<groupId>${jpa.dependency.groupid}</groupId>
+  		<artifactId>${jpa.dependency.artifactid}</artifactId>
+  		<version>${jpa.dependency.version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.icabanas</groupId>
+  		<artifactId>icabanas-core-api</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<!-- 
+  	<dependency>
+  		<groupId>javax.validation</groupId>
+  		<artifactId>validation-api</artifactId>
+  		<version>1.0.0.GA</version>
+  	</dependency>
+  	 -->
+  </dependencies>
+  
+  <profiles>
+  	<profile>
+  		<id>hbm-export</id>
+  		<build>
+		  	<plugins>
+		  		<plugin>
+		  			<groupId>org.codehaus.mojo</groupId>
+		  			<artifactId>hibernate3-maven-plugin</artifactId>
+		  			<version>2.2</version>
+		  			<executions>
+		  				<execution>				        	
+				            <phase>process-classes</phase>
+				            <goals>
+				              <goal>hbm2ddl</goal>
+				            </goals>
+				            <configuration>
+				            </configuration>
+				          </execution>
+		  			</executions>
+		  			<configuration>
+		  				<components>
+		  					<component>
+		  						<name>hbm2ddl</name>
+		  						<implementation>jpaconfiguration</implementation>
+		  					</component>
+		  				</components>
+		  				<componentProperties>
+		  					<!-- genera sentencias drop -->
+		  					<drop>true</drop>
+		  					<!-- genera sentencias create -->
+		  					<create>true</create>
+		  					<export>false</export>
+		  					<!-- formatea las sentencias -->
+		  					<format>true</format>
+		  					<!-- nombre de la unidad de persistencia definida en el persistence.xml -->
+		  					<persistenceunit>Despensa</persistenceunit>
+		  					<!-- path al fichero de propiedades donde se localiza básicamente el dialecto de la base de datos -->
+		  					<propertyfile>src/main/resources/hibernate.properties</propertyfile>	
+		  					<!-- nombre del fichero de salida que tendrá las sql generadas -->
+		  					<outputfilename>schema-despensa.sql</outputfilename>	
+		  				</componentProperties>
+		  			</configuration>
+		  		</plugin>
+		  	</plugins>
+		  </build>
+  	</profile>
+  	
+  	<profile>
+  		<id>sqlmaven</id>
+  		<build>
+  			<plugins>
+  				<plugin>
+  					<groupId>org.codehaus.mojo</groupId>
+  					<artifactId>sql-maven-plugin</artifactId>
+  					<version>1.5</version>
+  					<configuration>
+  						<driver>${db.driverClassName}</driver>
+  						<url>${db.url}</url>
+  						<username>${db.username}</username>
+  						<password>${db.password}</password>
+  						<srcFiles>
+  							<srcFile>target/hibernate3/sql/schema-despensa.sql</srcFile>
+  						</srcFiles>
+  					</configuration>
+  					<dependencies>
+  						<dependency>
+  							<groupId>hsqldb</groupId>
+  							<artifactId>hsqldb</artifactId>
+  							<version>${hsqldb.version}</version>
+  						</dependency>
+  					</dependencies>
+  				</plugin>
+  			</plugins>
+  		</build>
+  	</profile>  
+  	
+  	<profile>
+      	<id>dbunit</id>
+  		<build>
+  			<plugins>
+  				<plugin>
+  					<groupId>org.codehaus.mojo</groupId>
+  					<artifactId>dbunit-maven-plugin</artifactId>
+  					<version>1.0-beta-3</version>
+  					<configuration>
+  						<driver>${db.driverClassName}</driver>
+  						<url>${db.url}</url>
+  						<username>${db.username}</username>
+  						<password>${db.password}</password>
+  						<type>CLEAN_INSERT</type>
+  						<src>src/test/data/data.xml</src>
+  					</configuration>
+  					<dependencies>
+  						<dependency>
+  							<groupId>hsqldb</groupId>
+  							<artifactId>hsqldb</artifactId>
+  							<version>${hsqldb.version}</version>
+  						</dependency>
+  					</dependencies>
+  				</plugin>
+  			</plugins>
+  		</build>    
+    </profile>	
+  </profiles>
+  
+</project>

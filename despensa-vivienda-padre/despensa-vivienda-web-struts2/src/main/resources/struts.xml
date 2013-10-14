@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+	"http://struts.apache.org/dtds/struts-2.0.dtd"> 
+
+<struts> 
+	<!-- El tag constant nos permite sobreescribir la propiedades que incluimos en struts.properties -->
+	<constant name="struts.devMode" value="true" /> 				
+	
+	<package name="default" extends="struts-default">
+		<interceptors>
+			<interceptor name="loggingExcepcionesInterceptor"
+				class="org.icabanas.despensa.web.interceptors.LoggingExcepcionesInterceptor"/>
+	  		<interceptor-stack name="appDefaultStack">	  			
+	    		<interceptor-ref name="defaultStack" />
+	    		<!-- 
+	    			Coloco el interceptor loggingExcepcionesInterceptor después de los definidos en defualtStack 
+	    			para que se ejecute en primer lugar, ya que si lo pongo delante de defaultStack, éste tiene definido 
+	    			el interceptor ExceptionMappingInterceptor y anula a logginExcepcionesInterceptor. 
+	    		-->
+	    		<interceptor-ref name="loggingExcepcionesInterceptor" />
+	 		</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="appDefaultStack" />
+		
+		<global-results>
+			<result name="error">/WEB-INF/jsp/error.jsp</result>
+		</global-results>
+		
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception" result="error" />
+		</global-exception-mappings>
+	</package>
+	
+	<package name="index" namespace="/" extends="default">		
+		<action name="">
+			<result>index.jsp</result>
+		</action>
+	</package>
+	 	
+	<include file="struts-config/struts-config-catalogo-productos.xml" /> 
+	<include file="struts-config/struts-config-catalogo-marcas.xml" />
+	
+</struts>

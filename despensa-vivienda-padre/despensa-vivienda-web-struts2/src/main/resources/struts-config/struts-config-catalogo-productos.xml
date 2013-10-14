@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+	"http://struts.apache.org/dtds/struts-2.0.dtd"> 
+
+<struts> 
+		
+	<package name="catalogoproducto" namespace="/catalogos/producto" extends="default">
+		<action name="alta" class="catalogoProductosWrapperAction" 
+				method="alta">
+			<result name="success">/WEB-INF/jsp/catalogos/productos/alta.jsp</result> 
+		</action>
+		<action name="guardar" class="catalogoProductosWrapperAction" 
+				method="guardar"> 
+			<result name="listado">/WEB-INF/jsp/catalogos/productos/lista.jsp</result> 
+			<result name="input">/WEB-INF/jsp/catalogos/productos/alta.jsp</result>
+		</action> 
+		<action name="cancelar" class="catalogoProductosWrapperAction" 
+				method="cancelar"> 
+			<result name="success">/WEB-INF/jsp/catalogos/productos/lista.jsp</result> 
+		</action>
+		<action name="editar" class="catalogoProductosWrapperAction" 
+				method="editar"> 
+			<result name="success">/WEB-INF/jsp/catalogos/productos/edicion.jsp</result>
+			<result name="listado">/WEB-INF/jsp/catalogos/productos/lista.jsp</result>  
+		</action>
+		<action name="actualizar" class="catalogoProductosWrapperAction" 
+				method="actualizar"> 
+			<result name="listado">/WEB-INF/jsp/catalogos/productos/lista.jsp</result>
+			<result name="input">/WEB-INF/jsp/catalogos/productos/edicion.jsp</result>
+		</action>
+		<action name="eliminar" class="catalogoProductosWrapperAction" 
+				method="eliminar"> 
+			<result name="listado">/WEB-INF/jsp/catalogos/productos/lista.jsp</result> 
+		</action>
+		<action name="paginar" class="catalogoProductosWrapperAction" 
+				method="paginar"> 
+			<result name="listado">/WEB-INF/jsp/catalogos/productos/lista.jsp</result> 
+		</action>
+	</package> 
+	
+</struts>

@@ -1,0 +1,8 @@
+<?page title="Adminstracion Despensa con ZK 7" contentType="text/html;charset=UTF-8"?>
+<?page viewport="width=device-width,initial-scale=1.0"?>
+
+<zk>
+	<window>
+		<label value="ERROR" />
+	</window>
+</zk>

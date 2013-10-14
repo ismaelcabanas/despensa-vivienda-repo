@@ -1,0 +1,76 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+
+<zk xmlns:n="native">
+
+     <div  apply="org.zkoss.bind.BindComposer"
+				viewModel="@id('vm') 
+					@init('org.icabanas.despensa.zk.catalogos.productos.CatalogoProductosVM',accion='alta')"
+				validationMessages="@id('vmsgs')"
+				form="@id('fx') @load(vm.seleccionado) @save(vm.seleccionado, before='guardar') @validator(vm.validador)">
+		
+		<div sclass="alert alert-error" visible="@load(not empty vm.errores)">
+			<n:h5>${labels.mensaje.errores}</n:h5>
+			<listbox model="@load(vm.errores)" sclass="z-listbox-errores">
+				<template name="model" var="error">
+					<listitem>
+						<listcell>
+							<label value="@load(error.mensaje)" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</div>
+		<n:div class="row-fluid">
+	    	<n:div class="block">
+	            <n:div class="navbar navbar-inner block-header">
+	                <n:div class="muted pull-left"><label value="${labels.producto.titulo.alta}" /></n:div>                
+	            </n:div>
+	            <n:div class="block-content collapse in">
+	                <n:div class="span12">
+	                    <n:form class="form-inline" >
+	                    	<n:fieldset>
+	                    		<!--<n:legend><n:small><label value="Criterio de busqueda" /></n:small></n:legend>-->
+								<separator />													
+								
+								<div sclass="@load(empty vmsgs['codigo'] ? 'control-group' : 'control-group error')">
+									<n:label class="control-label" for="codigo">${labels.producto.codigo}</n:label>
+									<n:em class="mi-text-info">${labels.texto.obligatorio}</n:em>
+	                              	<n:div class="controls">
+	                                	<textbox sclass="input-small" value="@bind(vm.seleccionado.codigo)" />
+	                                	<label value="@bind(vmsgs['codigo'])" sclass="texto-error" />
+	                              	</n:div>
+	                            </div>
+	                            <div sclass="@load(empty vmsgs['nombre'] ? 'control-group' : 'control-group error')">
+									<n:label class="control-label" for="nombre">${labels.producto.nombre}</n:label>
+									<n:em class="mi-text-info">${labels.texto.obligatorio}</n:em>
+									<n:div class="controls">
+	                                	<textbox  value="@bind(vm.seleccionado.nombre)"/>
+	                                	<label value="@bind(vmsgs['nombre'])" sclass="texto-error" />
+	                              	</n:div>
+	                            </div>
+								<n:div class="control-group">
+									<n:label class="control-label" for="marca">${labels.producto.marca}</n:label>
+									<n:em class="mi-text-info">${labels.texto.opcional}</n:em>
+	                              	<n:div class="controls">
+	                                	<listbox id="marca" model="@load(vm.marcas)" mold="select"
+												selectedItem="@bind(vm.seleccionado.marca)">
+											<template name="model" var="marca">
+												<listitem label="@load(marca.nombre)" value="@load(marca.id)" />
+											</template>
+										</listbox>
+	                              	</n:div>
+	                            </n:div>
+								<n:div class="form-actions">
+									<button id="btnCancelar" label="${labels.boton.cancelar}" sclass="btn" zclass="mi-zk-button" onClick="@command('cancelar')"/>
+									<button id="btnGuardar" label="${labels.boton.guardar}" autodisable="self,btnCancelar"  sclass="btn btn-primary" zclass="mi-zk-button" onClick="@command('guardar')" />
+	                            </n:div>
+							</n:fieldset>
+	                    </n:form>	                    
+	                </n:div>                
+	             </n:div>
+	        </n:div>
+	    </n:div>	    				
+		
+	</div>
+	
+</zk>

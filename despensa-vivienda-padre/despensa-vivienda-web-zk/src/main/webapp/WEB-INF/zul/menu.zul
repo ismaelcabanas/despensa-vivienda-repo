@@ -1,0 +1,7 @@
+<menubar>
+	<menu label="${labels.menu.administracion.$}">
+		<menupopup>
+			<menuitem id="linkCatalogoProductos" label="${labels.menu.administracion.productos}" onClick="@command('cargarZul',pagina='/WEB-INF/zul/catalogos/productos/productos.zul')" />
+		</menupopup>	
+	</menu>
+</menubar>

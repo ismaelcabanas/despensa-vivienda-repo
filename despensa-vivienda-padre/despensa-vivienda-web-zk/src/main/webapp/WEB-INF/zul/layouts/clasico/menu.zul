@@ -1,0 +1,36 @@
+<zk xmlns:n="native">
+	<div class="container-fluid" apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vm') @init('org.icabanas.despensa.zk.controlador.menu.MenuClasicoVM')">
+		<n:ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+			<n:li class="dropdown">
+			  <n:a href="#" data-toggle="dropdown" class="dropdown-toggle"><n:i class="icon-chevron-right"></n:i><label value="${labels.menu.administracion.catalogo.$}" /></n:a>
+			  <n:ul class="dropdown-menu pull-right">
+			  	<n:li>
+			    	<a onClick="@command('cargarZul',pagina='/WEB-INF/zul/catalogos/categorias/categorias.zul')"><label value="${labels.menu.administracion.catalogo.categorias}" /></a>
+			    </n:li>
+			    <n:li>
+			        <a onClick="@command('cargarZul',pagina='/WEB-INF/zul/catalogos/marcas/marcas.zul')"><label value="${labels.menu.administracion.catalogo.marcas}" /></a>
+			        <!-- Submenu
+			        <n:ul class="dropdown-menu sub-menu">
+			            <n:li><n:a href="#">Action</n:a></n:li>
+			            <n:li><n:a href="#">Another action</n:a></n:li>
+			            
+			        </n:ul>
+			        -->
+			    </n:li>
+			    <n:li>
+			    	<a onClick="@command('cargarZul',pagina='/WEB-INF/zul/catalogos/productos/productos.zul')"><label value="${labels.menu.administracion.catalogo.productos}" /></a>
+			    </n:li>
+			  </n:ul>
+			</n:li>                    	                                               
+	        <n:li>
+	            <n:a href="interface.html"><label value="${labels.menu.despensa}" /></n:a>
+	        </n:li>
+	        <!--
+	        <n:li>
+	            <n:a href="#"><n:span class="badge badge-success pull-right">731</n:span> Orders</n:a>
+	        </n:li>
+	        -->                        
+	    </n:ul>
+	</div>
+</zk>

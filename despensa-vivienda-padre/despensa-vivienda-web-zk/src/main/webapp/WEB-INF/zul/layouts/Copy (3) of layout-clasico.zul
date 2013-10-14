@@ -1,0 +1,94 @@
+
+
+<zk xmlns:n="native">
+	
+	<div class="navbar navbar-fixed-top">
+    	<div class="navbar-inner">
+        	<div class="container-fluid">
+                   <a class="brand" href="#">Administracion Despensa</a>
+                    <div class="nav-collapse collapse">
+                    	<div sclass="nav pull-right user-nav">    
+	                    	<menubar>
+	                    		<menuitem iconSclass="icon icon-black icon-home" label="Home"/>
+								<menuitem iconSclass="icon icon-black icon-cog" label="Preferencias" />
+								<menu iconSclass="icon icon-black icon-user" label="Ismael Cabanas Garcia">
+									<menupopup sclass="menupopup">
+										<menuitem label="new message" />
+										<menuitem label="inbox" />
+										<menuitem label="outbox" />
+										<menuitem label="Desconectar" />
+									</menupopup>
+								</menu>								
+							</menubar>                	
+						</div>
+                    </div>
+                    <!--/.nav-collapse -->
+        	</div>
+    	</div>
+	</div>
+
+	<div class="container-fluid">
+	    <div class="row-fluid">
+	        <div class="span2" id="menu-lateral">
+	        	<div class="menu-vertical">
+		      		<menubar orient="vertical">
+		      			<menu label="Gestion de catalogos">
+							<menupopup sclass="menupopup">
+								<menuitem label="Catalogo de categorias"/>
+								<menuitem label="Catalogo de marcas"/>
+								<menuitem label="Catalogo de productos"/>								
+							</menupopup>							
+						</menu>	
+						<menuseparator />								
+						<menuitem label="Gestion de despensa"/>
+						<menuseparator />
+						<menuitem label="Gestion de usuarios"/>
+					</menubar>	  
+				</div>
+	        </div>
+	        
+	        <div class="span10" id="content">
+	      		<div class="container-fluid contenido">
+	      			<div class="row-fluid">
+                        <div class="alert alert-success">
+							<n:h4>Success</n:h4>
+                        	The operation completed successfully
+                        </div>
+                        <div class="navbar">
+                           	<div class="navbar-inner">
+	                        	<n:ul class="breadcrumb">
+	                            	<n:i class="icon-chevron-left hide-sidebar"><n:a href='#' title="Hide Sidebar" rel='tooltip'></n:a></n:i>
+	                                <n:i class="icon-chevron-right show-sidebar" style="display:none;"><n:a href='#' title="Show Sidebar" rel='tooltip'></n:a></n:i>
+	                                <n:li>
+	                                	<n:a href="#">Dashboard</n:a> <n:span class="divider">/</n:span>	
+	                                </n:li>
+	                                <n:li>
+	                                	<n:a href="#">Settings</n:a> <n:span class="divider">/</n:span>	
+	                                </n:li>
+	                            	<n:li class="active">Tools</n:li>
+	                        	</n:ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row-fluid">
+                        <!-- block -->
+                        <div class="block">
+                            <div class="navbar navbar-inner block-header">
+                                <div class="muted pull-left">Busqueda de productos</div>                                
+                            </div>
+                            <div class="block-content collapse in">
+                                <div class="span12">
+                                	<n:form class="form-horizontal">
+                                	
+                                	</n:form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /block -->
+                    </div>
+                </div>	      		 
+	        </div>
+		</div>
+	</div>	       
+</zk>

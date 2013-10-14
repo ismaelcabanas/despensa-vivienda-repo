@@ -1,0 +1,64 @@
+<?page title="Adminstracion Despensa con ZK 7" contentType="text/html;charset=UTF-8"?>
+<?page viewport="width=device-width,initial-scale=1.0"?>
+
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/WEB-INF/zul/layouts/clasico/layout.zul"?>
+<zk>
+
+	<style>
+	/*
+		.mi-text-info{
+			color: #3A87AD;
+			font-size: 12px;
+		}
+		
+		.texto-error{
+			color: #B94A48;
+			font-size: 12px;
+		}
+		
+		.mi-z-button span{
+	font-size: 10.5px;
+}
+		*/
+		/*
+		.modal-backdrop{
+			background-color: transparent;
+		}
+		*/
+		
+		button[class*="mi-z-button"]{
+			font-size: 12px;
+		}
+		
+		/*
+		.z-button:hover{
+			text-decoration: none;
+			background-position: 0 -15px;
+			-webkit-transition: background-position 0.1s linear;
+			-moz-transition: background-position 0.1s linear;
+			-o-transition: background-position 0.1s linear;
+			transition: background-position 0.1s linear;
+			background: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+			background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+			background: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+			background: -o-linear-gradient(top, #ffffff, #e6e6e6);
+			background: linear-gradient(to bottom, #ffffff, #e6e6e6);
+			background-repeat: repeat-x;
+			background-color: #E6E6E6;
+			border-color: #CCC;
+		}
+		*/
+		
+	</style>
+	    
+
+	<window self="@define(contenido)">
+		
+	</window>
+
+<!--	
+    <?script type="text/javascript" src="bootstrap/js/jquery-1.7.2.min.js"?>
+	<?script type="text/javascript" src="bootstrap/js/bootstrap.js"?>        
+	<?script type="text/javascript" src="js/scripts.js"?>
+-->	
+</zk>

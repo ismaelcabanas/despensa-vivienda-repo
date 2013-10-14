@@ -1,0 +1,38 @@
+/* Common styles */
+#about {
+	color: white;
+}
+
+.formerror {
+  border: 1px solid red;
+  background-color : #FFCCCC;
+  width: auto;
+  padding: 5px 0;
+}
+
+.opcional {
+	font-size: 0.85em;
+	font-style: italic;
+	text-align: left;
+}
+
+.divMensajes{
+	background-color:#DDFFDD;
+	border:1px solid #009900;
+	width:auto;
+	padding: 5px 0;
+}
+
+.divMensajes li{
+	list-style: none; 
+}
+
+.errortext {
+ padding-left: 80px;
+  font: bold smaller sans-serif;
+}
+
+p, td, li, blockquote, dl, pre {
+#line-height:145%;
+font-size:0.9em;
+}

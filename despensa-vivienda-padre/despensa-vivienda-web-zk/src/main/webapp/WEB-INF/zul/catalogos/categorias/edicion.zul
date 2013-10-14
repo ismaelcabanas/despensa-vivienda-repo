@@ -1,0 +1,56 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+
+<zk xmlns:n="native">
+
+     <div  apply="org.zkoss.bind.BindComposer"
+				viewModel="@id('vm')			
+					@init('org.icabanas.despensa.zk.catalogos.categorias.CatalogoCategoriasVM',accion=arg.modo)"
+				validationMessages="@id('vmsgs')"
+				form="@id('fx') @load(vm.seleccionado) @save(vm.seleccionado, before='actualizar') @validator(vm.validador)">
+		
+		<div sclass="alert alert-error" visible="@load(not empty vm.errores)">
+			<n:h5>${labels.mensaje.errores}</n:h5>
+			<listbox model="@load(vm.errores)" sclass="z-listbox-errores">
+				<template name="model" var="error">
+					<listitem>
+						<listcell>
+							<label value="@load(error.mensaje)" />
+						</listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</div>				
+		<n:div class="row-fluid">
+	    	<n:div class="block">
+	            <n:div class="navbar navbar-inner block-header">
+	                <n:div class="muted pull-left"><label value="${labels.categoria.titulo.edicion}" if="${arg.modo eq 'edicion'}" /><label value="${labels.categoria.titulo.detalle}" if="${arg.modo eq 'detalle'}" /></n:div>                
+	            </n:div>
+	            <n:div class="block-content collapse in">
+	                <n:div class="span12">
+	                    <n:form class="form-inline" >
+	                    	<n:fieldset>
+	                    		<separator />													
+								<separator />	
+								<div sclass="@load(empty vmsgs['nombre'] ? 'control-group' : 'control-group error')">
+									<n:label class="control-label" for="nombre">${labels.categoria.nombre}</n:label>
+									<n:em class="mi-text-info"><label value="${labels.texto.obligatorio}" if="${arg.modo eq 'edicion'}" /></n:em>
+									<n:div class="controls">
+	                                	<textbox readonly="${arg.modo eq 'detalle'}" value="@bind(vm.seleccionado.nombre)"/>
+	                                	<label value="@bind(vmsgs['nombre'])" sclass="texto-error" />
+	                              	</n:div>
+	                            </div>
+								<n:div class="form-actions">
+									<button id="btnCancelar" label="${labels.boton.cancelar}" sclass="btn" zclass="mi-zk-button" onClick="@command('cancelar')" if="${arg.modo eq 'edicion'}" />
+									<button id="btnVolver" label="${labels.boton.volver}" sclass="btn btn-primary" zclass="mi-zk-button" onClick="@command('volver')" if="${arg.modo eq 'detalle'}" />
+									<button id="btnGuardar" label="${labels.boton.actualizar}" autodisable="self,btnCancelar"  sclass="btn btn-primary" zclass="mi-zk-button" onClick="@command('actualizar')" if="${arg.modo eq 'edicion'}" />
+	                            </n:div>
+							</n:fieldset>
+	                    </n:form>	                    
+	                </n:div>                
+	             </n:div>
+	        </n:div>
+	    </n:div>	    				
+		
+	</div>
+	
+</zk>

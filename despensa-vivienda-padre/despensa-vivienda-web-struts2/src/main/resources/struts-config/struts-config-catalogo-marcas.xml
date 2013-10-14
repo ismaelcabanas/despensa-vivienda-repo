@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+	"http://struts.apache.org/dtds/struts-2.0.dtd"> 
+
+<struts> 
+		
+	<package name="catalogomarcas" namespace="/catalogos/marcas" extends="default">
+		<action name="alta" class="catalogoMarcasWrapperAction" 
+				method="alta">
+			<result name="success">/WEB-INF/jsp/catalogos/marcas/alta.jsp</result> 
+		</action>
+		<action name="cancelar" class="catalogoMarcasWrapperAction" 
+				method="cancelar"> 
+			<result name="success">/WEB-INF/jsp/catalogos/marcas/lista.jsp</result> 
+		</action>
+		<action name="editar" class="catalogoMarcasWrapperAction" 
+				method="editar"> 
+			<result name="success">/WEB-INF/jsp/catalogos/marcas/edicion.jsp</result>
+			<result name="listado">/WEB-INF/jsp/catalogos/marcas/lista.jsp</result>  
+		</action>
+		<action name="eliminar" class="catalogoMarcasWrapperAction" 
+				method="eliminar"> 
+			<result name="listado">/WEB-INF/jsp/catalogos/marcas/lista.jsp</result> 
+		</action>		
+		<action name="guardar" class="catalogoMarcasWrapperAction" 
+				method="guardar"> 
+			<result name="listado">/WEB-INF/jsp/catalogos/marcas/lista.jsp</result> 
+			<result name="input">/WEB-INF/jsp/catalogos/marcas/alta.jsp</result>
+		</action> 
+		<action name="actualizar" class="catalogoMarcasWrapperAction" 
+				method="actualizar"> 
+			<result name="listado">/WEB-INF/jsp/catalogos/marcas/lista.jsp</result>
+			<result name="input">/WEB-INF/jsp/catalogos/marcas/edicion.jsp</result>
+		</action>
+		<action name="paginar" class="catalogoMarcasWrapperAction" 
+				method="paginar"> 
+			<result name="listado">/WEB-INF/jsp/catalogos/marcas/lista.jsp</result> 
+		</action>
+	</package> 
+	
+</struts>

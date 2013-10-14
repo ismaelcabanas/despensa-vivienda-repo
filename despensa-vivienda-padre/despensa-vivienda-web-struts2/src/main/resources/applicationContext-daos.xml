@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<import resource="applicationContext-datasource.xml" />
+	
+	<import resource="applicationContext-jpa-hibernate.xml" />
+ 		
+	<bean id="gestorPersistencia" class="org.icabanas.jee.api.integracion.dao.jpa.GestorPersistenciaJPA" scope="prototype">
+		
+	</bean>
+ 	
+	<bean id="parentDao" abstract="true" class="org.icabanas.jee.api.integracion.dao.impl.AbstractGenericDao">
+		<property name="gestorPersistencia" ref="gestorPersistencia" />
+	</bean>
+	
+	<!-- Configuración DAO de la entidad Producto  -->
+	<bean id="catalogoProductosDao" class="org.icabanas.jee.api.integracion.dao.impl.AbstractGenericDao" parent="parentDao">
+		<constructor-arg value="org.icabanas.despensa.modelo.Producto"/>
+		<property name="criteriaBuilderMap">
+   			<map>
+   				<entry key="productoFiltro" value-ref="productoCriteriaBuilder"/>
+   			</map>
+   		</property>
+	</bean>
+	<bean id="productoCriteriaBuilder" class="org.icabanas.despensa.dao.catalogos.producto.criteria.ProductoJPACriteriaBuilder" />
+    
+    <!-- Configuración DAO de la entidad Marca  -->	
+    <bean id="catalogoMarcasDao" class="org.icabanas.jee.api.integracion.dao.impl.AbstractGenericDao" parent="parentDao">
+		<constructor-arg value="org.icabanas.despensa.modelo.Marca"/>
+		<property name="criteriaBuilderMap">
+   			<map>
+   				<entry key="marcaFiltro" value-ref="marcaCriteriaBuilder"/>
+   			</map>
+   		</property>
+	</bean>
+	<bean id="marcaCriteriaBuilder" class="org.icabanas.despensa.dao.catalogos.marca.criteria.MarcaJPACriteriaBuilder" />
+    
+</beans>
+
+

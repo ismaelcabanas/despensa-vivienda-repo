@@ -1,0 +1,61 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+
+<zk xmlns:n="native">
+		
+     <div apply="org.zkoss.bind.BindComposer"
+				viewModel="@id('vm') @init('org.icabanas.despensa.zk.catalogos.productos.CatalogoProductosVM',accion='busqueda')">			
+	    
+	    <n:div class="row-fluid">
+	    	<n:div class="block">
+	            <n:div class="navbar navbar-inner block-header">
+	                <n:div class="muted pull-left"><label value="${labels.producto.titulo.busqueda}" /></n:div>                
+	            </n:div>
+	            <n:div class="block-content collapse in">
+	                <n:div class="span12">
+	                    <n:form class="form-inline" >
+	                    	<n:fieldset>
+	                    		<!--<n:legend><n:small><label value="Criterio de busqueda" /></n:small></n:legend>-->
+								<separator />													
+								
+								<n:div class="control-group">
+									<n:label class="control-label" for="codigo">${labels.producto.codigo}</n:label>
+	                              	<n:div class="controls">
+	                                	<textbox sclass="input-small" value="@bind(vm.filtro.codigo)" />
+	                              	</n:div>
+	                            </n:div>
+	                            <n:div class="control-group">
+									<n:label class="control-label" for="nombre">${labels.producto.nombre}</n:label>
+									<n:div class="controls">
+	                                	<textbox  value="@bind(vm.filtro.nombre)"/>
+	                              	</n:div>
+	                            </n:div>
+								<n:div class="control-group">
+									<n:label class="control-label" for="marca">${labels.producto.marca}</n:label>
+	                              	<n:div class="controls">
+	                                	<listbox id="marca" model="@load(vm.marcas)" mold="select"
+												selectedItem="@bind(vm.filtro.marca)">
+											<template name="model" var="marca">
+												<listitem label="@load(marca.nombre)" value="@load(marca.id)" />
+											</template>
+										</listbox>
+	                              	</n:div>
+	                            </n:div>
+
+								<n:div class="form-actions">
+									<button id="btnLimpiar" label="${labels.boton.limpiar}" sclass="btn" zclass="mi-zk-button" onClick="@command('limpiar')" />
+									<button id="btnNuevo" label="${labels.boton.alta}" sclass="btn" zclass="mi-zk-button" onClick="@command('alta')" />
+									<button id="btnBuscar" label="${labels.boton.buscar}" autodisable="self,btnNuevo,btnLimpiar" iconSclass="icon-search icon-white" sclass="btn btn-primary" zclass="mi-zk-button" onClick="@command('buscar')"></button>
+	                            </n:div>
+							</n:fieldset>
+	                    </n:form>	                    	                    
+					</n:div>
+				</n:div>
+				
+				<include src="/WEB-INF/zul/catalogos/productos/resultadoBusqueda.zul" />
+				
+	        </n:div>
+	    </n:div>
+	    
+	</div>
+	
+</zk>

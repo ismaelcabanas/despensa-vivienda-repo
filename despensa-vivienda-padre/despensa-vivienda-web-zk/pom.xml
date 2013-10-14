@@ -1,0 +1,476 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.icabanas.despensa</groupId>
+    <artifactId>despensa-vivienda-padre</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>despensa-vivienda-web-zk</artifactId>
+  <packaging>war</packaging>
+  <name>despensa-vivienda-web-zk Maven Webapp</name>
+  <url>http://maven.apache.org</url>  
+  
+  <repositories>
+	<repository>
+		<id>ZK CE</id>
+		<name>ZK CE Repository</name>
+		<url>http://mavensync.zkoss.org/maven2</url>
+	</repository>
+	<repository>
+		<id>ZK EVAL</id>
+       	<name>ZK Evaluation Repository</name>
+		<url>http://mavensync.zkoss.org/eval</url>
+	</repository>
+  </repositories>
+  
+  <pluginRepositories>
+	<pluginRepository>
+		<id>zkmaven</id>
+		<name>ZK Maven Plugin Repository</name>
+		<url>http://mavensync.zkoss.org/maven2/</url>
+	</pluginRepository>
+  </pluginRepositories>
+
+  <properties>
+	<!-- <zk.version>6.5.2</zk.version> -->
+	<zk.version>7.0.0-Preview</zk.version>
+	<zk.spring.version>3.1</zk.spring.version>
+	<commons-io>1.3.1</commons-io>
+	<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+	<packname>-${project.version}-FL-${maven.build.timestamp}</packname>
+	<jetty.version>7.2.1.v20101111</jetty.version>
+	<web.port>8888</web.port>
+  	<web.context>/despensa-web</web.context>
+  	<web.host>http://localhost:${web.port}</web.host>
+  	<hibernate.dialect>org.hibernate.dialect.HSQLDialect</hibernate.dialect>
+  	<hibernate.showSQL>true</hibernate.showSQL>
+	<!-- DB properties -->  	
+  	<showSQL>true</showSQL>
+  	<db.url>jdbc:hsqldb:file:${project.basedir}/target/db/build;shutdown=true</db.url>
+	<db.driverClassName>org.hsqldb.jdbcDriver</db.driverClassName>
+	<db.username>sa</db.username>
+	<db.password></db.password>  
+	<db.ignoresCase>true</db.ignoresCase>
+  </properties>
+  
+  <dependencies>
+  	<!-- Dependencias de test -->
+  	<dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium</artifactId>
+        <version>2.0b1</version>
+        <scope>test</scope>
+        <exclusions>
+        	<!-- Excluyo la dependencia testng ya que no lo uso para mis test e incluyéndola hace uso de JUnit 3.8 -->
+        	<exclusion>
+		         <groupId>org.testng</groupId>
+		         <artifactId>testng</artifactId>
+		       </exclusion>
+        </exclusions>
+    </dependency>   
+    
+    <!-- Dependencias ZK -->	
+	<dependency>
+		<groupId>org.zkoss.zk</groupId>
+		<artifactId>zkbind</artifactId>
+		<version>${zk.version}</version>
+	</dependency>
+	<!-- 
+	<dependency>
+		<groupId>org.zkoss.zk</groupId>
+		<artifactId>zkmax</artifactId>
+		<version>${zk.version}</version>
+	</dependency>
+	 -->
+	<dependency>
+		<groupId>org.zkoss.zk</groupId>
+		<artifactId>zkplus</artifactId>
+		<version>${zk.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.zkoss.zk</groupId>
+		<artifactId>zhtml</artifactId>
+		<version>${zk.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+		<version>${commons-io}</version>
+	</dependency>
+	
+	<!-- Dependencias Despensa -->
+	<dependency> 
+    	<groupId>org.icabanas.despensa</groupId> 
+        <artifactId>despensa-vivienda-web</artifactId> 
+        <version>1.0-SNAPSHOT</version> 
+        <scope>compile</scope> 
+    </dependency>
+    
+    <!-- Dependencias Spring -->
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-web</artifactId>
+    	<version>${spring.framework.version}</version>
+    	<scope>runtime</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-jdbc</artifactId>
+    	<version>${spring.framework.version}</version>
+    	<scope>runtime</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-orm</artifactId>
+    	<version>${spring.framework.version}</version>
+    	<scope>runtime</scope>
+    </dependency>
+    
+   	<!-- Dependencias integración ZK y Spring -->
+	<dependency>
+	    <groupId>org.zkoss.zk</groupId>
+	    <artifactId>zkspring-core</artifactId>
+	    <version>${zk.spring.version}</version>
+	    <scope>runtime</scope>
+	</dependency>
+	<dependency>
+	    <groupId>org.zkoss.zk</groupId>
+	    <artifactId>zkspring-webflow</artifactId>
+	    <version>${zk.spring.version}</version>
+	    <scope>runtime</scope>
+	</dependency>    
+    
+    <!-- Hibernate dependencies -->  
+    <dependency> 
+    	<groupId>org.hibernate</groupId> 
+        <artifactId>hibernate-entitymanager</artifactId> 
+        <version>${hibernate.version}</version> 
+        <scope>runtime</scope>                   
+    </dependency>
+    <!-- Dependencia HSQLDB -->
+    <dependency>
+		<groupId>hsqldb</groupId>
+		<artifactId>hsqldb</artifactId>
+		<version>${hsqldb.version}</version>
+		<scope>runtime</scope>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.javassist</groupId>
+		<artifactId>javassist</artifactId>
+		<version>3.15.0-GA</version>
+		<scope>runtime</scope>
+	</dependency>
+	
+	<!-- Dependencia AspectJ -->
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+		<version>1.5.4</version>
+		<scope>runtime</scope>
+	</dependency>
+
+	<!-- Dependencia con componentes ZK personalizados -->
+	<dependency>
+		<groupId>org.icabanas</groupId>
+		<artifactId>zk-componentes</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<scope>runtime</scope>
+	</dependency>
+		
+	<!-- Dependencia LESS
+	<dependency>
+		<groupId>com.asual.lesscss</groupId>
+		<artifactId>lesscss-engine</artifactId>
+		<version>1.3.3</version>
+	</dependency>
+	 -->
+	 
+<!-- ZK 5 breeze theme
+<dependency>
+<groupId>org.zkoss.theme</groupId>
+<artifactId>breeze</artifactId>
+<version>${zk.version}</version>
+<optional>true</optional>
+</dependency>
+-->
+  </dependencies>
+
+
+  <build>
+    <finalName>despensa-vivienda-web-zk</finalName>
+    <resources>
+  		<resource>
+  			<directory>src/main/resources</directory>
+  			<filtering>true</filtering>
+  		</resource>
+  	</resources>
+  	<testResources>  		
+  		<testResource>
+  			<directory>src/test/resources</directory>
+  			<filtering>true</filtering>
+  		</testResource>
+  	</testResources>
+  	
+    <plugins> 
+      	<plugin> 
+	        <groupId>org.apache.maven.plugins</groupId> 
+	        <artifactId>maven-war-plugin</artifactId> 
+	        <version>2.1.1</version> 
+	        <configuration> 
+	          <!-- web.xml is not mandatory since JavaEE 5 --> 
+	          <failOnMissingWebXml>true</failOnMissingWebXml> 
+	          <!-- 
+	          <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors> 
+	          <warSourceDirectory>WebContent</warSourceDirectory>         
+	          <webResources> 
+	            <resource> 
+	              <directory>src/main/webapp2</directory> 
+	              <filtering>true</filtering> 
+	            </resource> 
+	          </webResources> 
+	          --> 
+	        </configuration> 
+      	</plugin>            	
+  		
+  		<plugin>
+		  	<groupId>org.mortbay.jetty</groupId>
+			<artifactId>jetty-maven-plugin</artifactId>
+			<version>${jetty.version}</version>
+			<configuration>
+				<connectors>
+					<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+						<port>${web.port}</port>
+					</connector>
+				</connectors>
+			    <scanIntervalSeconds>10</scanIntervalSeconds>
+				<reload>automatic</reload>
+				<stopKey>foo</stopKey>
+				<stopPort>9090</stopPort>
+				<webAppConfig>
+					<!-- <defaultsDescriptor>${basedir}/target/test-classes/webdefault.xml</defaultsDescriptor> -->
+					<contextPath>${web.context}</contextPath>
+					<sessionHandler implementation="org.eclipse.jetty.server.session.SessionHandler">
+						<sessionManager implementation="org.eclipse.jetty.server.session.HashSessionManager">
+							<storeDirectory>${basedir}/target/sessions</storeDirectory>
+						</sessionManager>
+					</sessionHandler>
+				</webAppConfig>
+				<!-- 
+				<systemproperties>
+					<systemproperty>
+						<name>log4j.configuration</name>
+						<value>file:${project.basedir}/target/classes/log4j.xml</value>
+					</systemproperty>
+				</systemproperties>
+				 -->
+				<scanTargetPatterns>
+					<scanTargetPattern>                            
+						<directory>src/main/webapp/WEB-INF</directory>
+						<includes>
+							<include>**/*.xml</include>
+						</includes>
+					</scanTargetPattern>
+					<scanTargetPattern>                            
+						<directory>src/main/resources</directory>
+						<includes>
+							<include>**/*.xml</include>
+							<include>**/*.properties</include>
+						</includes>
+					</scanTargetPattern>
+					<scanTargetPattern>
+						<directory>src/main/java</directory>
+						<includes>
+							<include>**/*.java</include>
+						</includes>
+					</scanTargetPattern>
+					<!-- <scanTargetPattern>
+						<directory>src/main/resources</directory>
+						<includes>
+							<include>**/*.xml</include>
+						</includes>
+					</scanTargetPattern> -->
+				</scanTargetPatterns>				
+			</configuration>				
+		</plugin>		  				
+  	</plugins> 
+  </build>
+  
+  <profiles>
+    <profile>
+      <id>testing-jetty-hsqldb</id>
+      <build>
+      	<plugins>       		
+	  		
+      		<plugin>
+	  			<groupId>org.codehaus.mojo</groupId>
+	  			<artifactId>hibernate3-maven-plugin</artifactId>
+	  			<version>2.2</version>
+	  			<executions>
+	  				<execution>		
+	  					<id>Generación esquema ddl CREATE</id>		        	
+			            <phase>process-test-resources</phase>
+			            <goals>
+			              <goal>hbm2ddl</goal>
+			            </goals>
+			            <configuration>
+			  				<components>
+			  					<component>
+			  						<name>hbm2ddl</name>
+			  						<implementation>jpaconfiguration</implementation>
+			  					</component>
+			  				</components>
+			  				<componentProperties>
+			  					<!-- genera sentencias drop -->
+			  					<drop>false</drop>
+			  					<!-- genera sentencias create -->
+			  					<create>true</create>
+			  					<!-- con export=false genera los ddls en el fichero de salida definido -->
+			  					<export>false</export>
+			  					<!-- formatea las sentencias -->
+			  					<format>true</format>
+			  					<!-- nombre de la unidad de persistencia definida en el persistence.xml -->
+			  					<persistenceunit>Despensa</persistenceunit>
+			  					<!-- path al fichero de propiedades donde se localiza básicamente el dialecto de la base de datos -->
+			  					<propertyfile>target/test-classes/db.properties</propertyfile>	
+			  					<!-- nombre del fichero de salida que tendrá las sql generadas -->
+			  					<outputfilename>schema-create-test.sql</outputfilename>	
+			  				</componentProperties>
+			  			</configuration>
+			        </execution>
+			        <execution>		
+	  					<id>Generación esquema ddl DROP</id>		        	
+			            <phase>process-test-resources</phase>
+			            <goals>
+			              <goal>hbm2ddl</goal>
+			            </goals>
+			            <configuration>
+			  				<components>
+			  					<component>
+			  						<name>hbm2ddl</name>
+			  						<implementation>jpaconfiguration</implementation>
+			  					</component>
+			  				</components>
+			  				<componentProperties>
+			  					<!-- genera sentencias drop -->
+			  					<drop>true</drop>
+			  					<!-- genera sentencias create -->
+			  					<create>false</create>
+			  					<!-- con export=false genera los ddls en el fichero de salida definido -->
+			  					<export>false</export>
+			  					<!-- formatea las sentencias -->
+			  					<format>true</format>
+			  					<!-- nombre de la unidad de persistencia definida en el persistence.xml -->
+			  					<persistenceunit>Despensa</persistenceunit>
+			  					<!-- path al fichero de propiedades donde se localiza básicamente el dialecto de la base de datos -->
+			  					<propertyfile>target/test-classes/db.properties</propertyfile>	
+			  					<!-- nombre del fichero de salida que tendrá las sql generadas -->
+			  					<outputfilename>schema-drop-test.sql</outputfilename>	
+			  				</componentProperties>
+			  			</configuration>
+			        </execution>  		        
+	  			</executions>  		  			
+	  			<dependencies>
+	  				<dependency>
+	    				<groupId>org.slf4j</groupId>
+	    				<artifactId>slf4j-api</artifactId>
+	    				<version>${slf4j.version}</version>		
+	    			</dependency>
+	    			<dependency>
+	    				<groupId>org.slf4j</groupId>
+	    				<artifactId>slf4j-simple</artifactId>
+	    				<version>${slf4j.version}</version>		
+	    			</dependency>  				
+	  				<dependency>
+	  					<groupId>org.icabanas.despensa</groupId>
+	  					<artifactId>despensa-vivienda-modelo</artifactId>
+	  					<version>1.0-SNAPSHOT</version> 
+	  				</dependency>
+	  			</dependencies>	
+	  		</plugin>
+	  		
+	  		<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>Borra la base de datos de integración si estuviera</id>
+						<phase>process-test-resources</phase>		
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<autocommit>true</autocommit>
+							<srcFiles>
+								<srcFile>target/hibernate3/sql/schema-drop-test.sql</srcFile>
+							</srcFiles>	
+							<onError>continue</onError>
+						</configuration>			
+					</execution>
+					<execution>
+						<id>Creación base de datos de integración</id>
+						<phase>process-test-resources</phase>		
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<autocommit>true</autocommit>						
+							<srcFiles>
+								<srcFile>target/hibernate3/sql/schema-create-test.sql</srcFile>
+							</srcFiles>	
+						</configuration>			
+					</execution>													
+				</executions>
+				<configuration>
+					<driver>${db.driverClassName}</driver>
+					<url>${db.url}</url>
+					<username>${db.username}</username>
+					<password>${db.password}</password>
+				</configuration>			
+				<dependencies>
+					<dependency>
+						<groupId>hsqldb</groupId>
+						<artifactId>hsqldb</artifactId>
+						<version>${hsqldb.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>dbunit-maven-plugin</artifactId>
+				<version>1.0-beta-3</version>
+				<executions>
+					<execution>
+						<id>Preparación de base de la datos</id>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>operation</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<driver>${db.driverClassName}</driver>
+					<url>${db.url}</url>
+					<username>${db.username}</username>
+					<password>${db.password}</password>
+					<format>flat</format>
+					<type>CLEAN_INSERT</type>
+					<src>src/test/data/datos.xml</src>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>hsqldb</groupId>
+						<artifactId>hsqldb</artifactId>
+						<version>${hsqldb.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>	
+      	</plugins>      	
+      </build>
+    </profile>
+  </profiles>
+</project>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<bean id="abstractCatalogoAction" class="org.icabanas.despensa.web.actions.catalogos.AbstractCatalogoAction"
+			abstract="true">
+		<property name="preferenciasUsuario" ref="preferenciasUsuario" />
+    	<property name="notificacion" ref="notificacion" />
+	</bean>
+	
+	<!-- El scope de un bean por defecto es singleton, de forma que el contenedor de Spring
+    	crea una sola instancia del bean. El motivo de indicar el scope="prototype" en el bean action
+    	es para que cree una instancia del mismo en cada petición, de lo contrario, por ejemplo, si 
+    	fuese singleton, y se produjesen errores en algún campo del formulario, el error permanece 
+    	en sucesivas peticiones -->
+       
+    <!-- Definición del action del catálogo de produtos -->	
+    <bean id="catalogoProductosAction" class="org.icabanas.despensa.web.actions.catalogos.productos.CatalogoProductosAction" 
+    		scope="prototype" parent="abstractCatalogoAction">
+    	<constructor-arg ref="catalogoProductos" />    		
+    	<constructor-arg ref="catalogoMarcas" />
+    </bean>     
+    
+    <bean id="catalogoMarcasAction" class="org.icabanas.despensa.web.actions.catalogos.marcas.CatalogoMarcasAction" 
+    		scope="prototype" parent="abstractCatalogoAction">
+    	<constructor-arg ref="catalogoMarcas" />
+    </bean>
+    
+    <bean id="catalogoCategoriasAction" class="org.icabanas.despensa.web.actions.catalogos.categorias.CatalogoCategoriasAction" 
+    		scope="prototype" parent="abstractCatalogoAction">
+    	<constructor-arg ref="catalogoCategorias" />
+    </bean>
+    
+    <!-- 
+    <bean id="catalogoProductosVM" class="org.icabanas.despensa.zk.catalogos.productos.CatalogoProductosVM" 
+    		parent="parentAction" scope="prototype" >
+    	<property name="accion" ref="catalogoProductosAction" />
+    </bean>
+	 -->
+</beans>
+
+

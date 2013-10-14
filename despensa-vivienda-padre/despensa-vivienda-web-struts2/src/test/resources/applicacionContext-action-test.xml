@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<!-- Para realizar test sobre los Action, creo este fichero donde se configura el plugin de struts2-spring3,
+	 de forma que no se inyectan los servicios que utiliza el action ya que los simulamos en los test con 
+	 objetos Mock -->
+	 
+	<bean id="catalogoProductosWrapperAction" class="org.icabanas.despensa.web.actions.catalogos.productos.CatalogoProductosStruts2WrapperAction" />
+	
+	<bean id="catalogoMarcasWrapperAction" class="org.icabanas.despensa.web.actions.catalogos.marcas.CatalogoMarcasStruts2WrapperAction" />
+
+</beans>
+
+

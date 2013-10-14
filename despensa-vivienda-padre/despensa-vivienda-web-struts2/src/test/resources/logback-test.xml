@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+    </layout>
+  </appender>
+	
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>C://AEAT//isma//desarrollo//logs//despensa-tests.log</file>
+    <append>true</append>
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+    </encoder>
+  </appender>
+  
+  <appender name="FILE-DBUNIT" class="ch.qos.logback.core.FileAppender">
+    <file>C://AEAT//isma//desarrollo//logs//despensa-tests-dbunit.log</file>
+    <append>true</append>
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="org.hibernate.SQL" level="DEBUG">
+  	<appender-ref ref="FILE" />
+  </logger>
+  <logger name="org.hibernate.type" level="TRACE">
+  	<appender-ref ref="FILE" />
+  </logger>      
+  <logger name="org.icabanas.despensa" level="DEBUG">
+  	<appender-ref ref="FILE" />
+  </logger>
+  <logger name="org.dbunit" level="INFO">
+  	<appender-ref ref="FILE-DBUNIT" />
+  </logger>
+    
+  <root level="debug">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>

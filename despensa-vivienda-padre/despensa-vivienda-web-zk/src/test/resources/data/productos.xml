@@ -1,0 +1,11 @@
+<!--?xml version='1.0' encoding='UTF-8'?--> 
+
+<dataset>
+	<PRODUCTO id="101" codigo="cod-1" nombre="Leche" id_marca="1" />
+	<PRODUCTO id="102" codigo="cod-2" nombre="Leche" id_marca="2" />
+	<PRODUCTO id="103" codigo="cod-3" nombre="Galletas" />
+	<PRODUCTO id="104" codigo="cod-4" nombre="Atún" />
+	<PRODUCTO id="105" codigo="cod-5" nombre="Pasta" />
+	<PRODUCTO id="106" codigo="cod-6" nombre="Miel" />
+	<PRODUCTO id="107" codigo="cod-7" nombre="Pan" />
+</dataset>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<decorators defaultdir="/WEB-INF/decorators">
+    <excludes>
+        <pattern>/css/*</pattern>
+        <pattern>/js/*</pattern>
+        <pattern>/img/*</pattern>
+        <pattern>/index.jsp</pattern>
+        <pattern>/META-INF/*</pattern>
+        <!-- <pattern>/</pattern> -->
+    </excludes>
+ 
+    <decorator name="layout" page="layout-simple.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+     
+</decorators>

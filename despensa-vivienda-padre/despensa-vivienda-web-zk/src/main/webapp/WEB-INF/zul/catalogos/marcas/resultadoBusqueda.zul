@@ -1,0 +1,87 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+
+<zk xmlns:n="native">
+	  	
+	<n:div class="block-content collapse in">
+        <n:div class="span12">	
+			<panel width="100%" sclass="sectionPanel" visible="@load(not empty vm.pagina.datos)">
+				<panelchildren>
+					<n:fieldset>                    	
+						<n:legend><n:small>${labels.mensaje.busqueda.resultado}</n:small></n:legend>
+					</n:fieldset>	
+					<separator />	
+				
+					<listbox model="@bind(vm.pagina.datos)" selectedItem="@bind(vm.seleccionado)" onDoubleClick="@command('detalle')">
+						<listhead>
+							<listheader label="${labels.marca.nombre}" />
+							<listheader label="${labels.texto.listado.acciones}" />
+						</listhead>
+						<template name="model" var="item">
+							<listitem>
+								<listcell>
+									<label value="@load(item.nombre)" sclass="rlabel" />
+								</listcell>
+								<listcell>
+                        			<hbox spacing="8px">
+                        				<button label="${labels.boton.ver}" 
+                       						disabled="@load(empty vm.seleccionado || item.id ne vm.seleccionado.id ? 'true' : 'false')" 
+                       						iconSclass="icon-eye-open" sclass="btn btn-mini"
+                             				zclass="mi-zk-button" onClick="@command('detalle')">
+                          				</button>
+                         				<button label="${labels.boton.editar}" 
+                         					disabled="@load(empty vm.seleccionado || item.id ne vm.seleccionado.id ? 'true' : 'false')"
+                         					iconSclass="icon-pencil" sclass="btn btn-mini"
+                             				zclass="mi-zk-button" onClick="@command('editar')">
+                          				</button>                          				
+                          				<button label="${labels.boton.eliminar}" 
+                          					disabled="@load(empty vm.seleccionado || item.id ne vm.seleccionado.id ? 'true' : 'false')"
+                          					iconSclass="icon-remove" sclass="btn btn-mini"
+                          					xmlns:w="client" w:onClick="simulaLink('a${item.id}')"
+                               				zclass="mi-zk-button">
+                            			</button>
+                            			<n:a id="a${item.id}" href="#myModal${item.id}" data-toggle="modal"></n:a>
+                            			
+                            			<!--<n:a href="#myModal${producto.id}" data-toggle="modal" class="btn btn-mini"><n:i class="icon-remove"></n:i> ${labels.boton.eliminar}</n:a>-->
+                            			<!--
+                            			<aHTML5 
+                            				disabled="@load(empty vm.seleccionado || item.id ne vm.seleccionado.id ? 'true' : 'false')"
+                            				href="#myModal${item.id}" 
+                            				dataAttribute="data-toggle" dataValue="modal" 
+                            				sclass="btn btn-mini" zclass="mi-zk-button" ><n:i class="icon-remove"></n:i> ${labels.boton.eliminar}
+                            			</aHTML5>
+                            			-->                            			
+                            			<n:div id="myModal${item.id}" class="modal hide">
+											<n:div class="modal-header">
+												<n:button data-dismiss="modal" class="close icon-remove" type="button"><n:i class="icon-remove"></n:i></n:button>
+												<n:h3>${labels.mensaje.confirmacion.titulo}</n:h3>
+											</n:div>
+											<n:div class="modal-body">
+												<n:p>${labels.mensaje.confirmacion.eliminar}</n:p>
+											</n:div>
+											<n:div class="modal-footer">												
+												<n:a data-dismiss="modal" class="btn" href="#">${labels.boton.cancelar}</n:a>
+												<!--<n:a data-dismiss="modal" class="btn btn-primary" href="#">${labels.boton.aceptar}</n:a>-->
+												<botonHTML5 label="${labels.boton.aceptar}" sclass="btn btn-primary" dataAttribute="data-dismiss" dataValue="modal"
+		                               				zclass="mi-zk-button" onClick="@command('eliminar')">
+		                            			</botonHTML5>
+											</n:div>
+										</n:div>
+										
+                     				</hbox>
+                   				</listcell>
+							</listitem>
+						</template>
+					</listbox>
+		
+					<paging autohide="true"	 
+						pageSize="@load(not empty vm.pagina.datos ? vm.pagina.numeroRegistrosPorPagina : 1)" 
+					 	totalSize="@load(not empty vm.pagina.datos ? vm.pagina.numeroTotalRegistros : 0)" 
+					 	activePage="@load(not empty vm.pagina.datos ? vm.pagina.pagina-1 : 0)"
+					 	onPaging="@command('paginar',paginaActiva=self.activePage)" />					
+							
+				</panelchildren>
+			</panel>
+								
+        </n:div>                
+     </n:div>	
+</zk>

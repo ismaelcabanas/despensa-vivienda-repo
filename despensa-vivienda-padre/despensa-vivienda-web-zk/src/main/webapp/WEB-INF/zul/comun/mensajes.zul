@@ -1,0 +1,47 @@
+<zk xmlns:n="native">
+
+	<script>
+       function notificacion(tipoMensaje,mensaje){
+       		var compId = '#'; 
+       		
+       		if(tipoMensaje == 'INFO'){
+       			compId += 'mensajeInfo';
+       		}
+       		else if(tipoMensaje == 'EXITO'){
+       			compId += 'mensajeExito';
+       		} 
+       		else if(tipoMensaje == 'ERROR'){
+       			compId += 'mensajeError';
+       		} 
+       		else if(tipoMensaje == 'ADVERTENCIA'){
+       			compId += 'mensajeAdvertencia';
+       		} 
+       		
+       		if ( !$(compId).is( '.in' ) ) {
+         		$(compId).addClass('in');
+         		var selector = compId + " span";
+				$(selector).text(mensaje);	
+         		setTimeout(function() {
+            		$(compId).removeClass('in');
+         		}, 3000);
+      }
+       }
+	</script>
+	
+	<n:div id="mensajeInfo" class="alert alert-info flyover">
+	   <n:span></n:span>
+	</n:div>
+	
+	<n:div id="mensajeExito" class="alert alert-success flyover flyover-centered">
+	   <n:span></n:span>
+	</n:div>
+	
+	<n:div id="mensajeError" class="alert alert-error flyover flyover-centered">
+	   <n:span></n:span>
+	</n:div>
+	
+	<n:div id="mensajeAdvertencia" class="alert alert-block flyover flyover-centered">
+	   <n:span></n:span>
+	</n:div>
+	
+</zk>

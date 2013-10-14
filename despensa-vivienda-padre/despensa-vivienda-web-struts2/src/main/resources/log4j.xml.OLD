@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="true" xmlns:log4j="http://jakarta.apache.org/log4j/">	      
+        
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern"  
+                value="%n%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%l] %n%m%n" />  
+        </layout>  
+    </appender>  
+ <!-- 
+    <appender name="error_file"  
+        class="org.apache.log4j.RollingFileAppender">  
+        <param name="File" value="C:\\AEAT\\isma\\desarrollo\\logs\\despensa-vivienda-web-struts2-Error.log" />  
+        <param name="MaxFileSize" value="2000000" />  
+        <param name="MaxBackupIndex" value="5" />  
+        <param name="Threshold" value="ERROR" />  
+  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern"  
+                value="%n%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%l] %n%m%n" />  
+        </layout>  
+    </appender>  
+  
+    <appender name="debug_file"  
+        class="org.apache.log4j.RollingFileAppender">  
+        <param name="File" value="C:\\AEAT\\isma\\desarrollo\\logs\\despensa-vivienda-web-struts2-debug.log" />  
+        <param name="MaxFileSize" value="5000000" />  
+        <param name="MaxBackupIndex" value="5" />  
+        <param name="Threshold" value="DEBUG" />
+  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern"  
+                value="%n%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%l] %n%m%n" />  
+        </layout>  
+    </appender>
+    
+    <appender name="debug_file_hibernate"  
+        class="org.apache.log4j.RollingFileAppender">  
+        <param name="File" value="C:\\AEAT\\isma\\desarrollo\\logs\\despensa-vivienda-web-struts2-debug-hibernate.log" />  
+        <param name="MaxFileSize" value="5000000" />  
+        <param name="MaxBackupIndex" value="5" />  
+  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern"  
+                value="%n%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%l] %n%m%n" />  
+        </layout>  
+    </appender>   
+    
+    <appender name="debug_file_spring"  
+        class="org.apache.log4j.RollingFileAppender">  
+        <param name="File" value="C:\\AEAT\\isma\\desarrollo\\logs\\despensa-vivienda-web-struts2-debug-spring.log" />  
+        <param name="MaxFileSize" value="5000000" />  
+        <param name="MaxBackupIndex" value="5" />  
+  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern"  
+                value="%n%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%l] %n%m%n" />  
+        </layout>  
+    </appender>  
+  
+    <appender name="info_file"  
+        class="org.apache.log4j.RollingFileAppender">  
+        <param name="File" value="C:\\AEAT\\isma\\desarrollo\\logs\\despensa-vivienda-web-struts2-Info.log" />  
+        <param name="MaxFileSize" value="2000000" />  
+        <param name="MaxBackupIndex" value="5" />  
+        <param name="Threshold" value="INFO" />  
+  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern"  
+                value="%n%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%l] %n%m%n" />  
+        </layout>  
+    </appender>      
+    
+    <appender name="despensa_file"  
+        class="org.apache.log4j.RollingFileAppender">  
+        <param name="File" value="C:\\AEAT\\isma\\desarrollo\\logs\\despensa-vivienda.log" />  
+        <param name="MaxFileSize" value="2000000" />  
+        <param name="MaxBackupIndex" value="5" />  
+        <param name="Threshold" value="INFO" />  
+  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern"  
+                value="%n%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%l] %n%m%n" />  
+        </layout>  
+    </appender> 
+  -->
+  	 <!-- specify the logging level for loggers from other libraries -->
+    <logger name="com.opensymphony">
+    	<level value="WARN" />
+    </logger>
+
+    <logger name="org.apache.struts2">
+    	 <level value="WARN" />
+    </logger>
+    
+    <root>  
+        <level value="ERROR" />
+        <appender-ref ref="console" />  
+        
+        <!--
+        <appender-ref ref="debug_file_spring" />        
+        
+        <appender-ref ref="debug_file" />
+        <appender-ref ref="error_file" />
+         -->           
+    </root>  
+<!--	   
+    <category name="org.hibernate">  
+        <priority value="DEBUG" />  
+        <appender-ref ref="debug_file_hibernate" />  
+    </category>  
+    
+  	<category name="org.springframework">  
+        <priority value="debug" />  
+        <appender-ref ref="console" />  
+    </category>
+
+    <category name="org.icabanas">  
+    	<priority value="DEBUG" />
+        <appender-ref ref="despensa_file" />  
+    </category>  
+-->  	
+</log4j:configuration>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	
+	<!-- Bussiness Objects -->
+	<bean id="catalogoProductos" class="org.icabanas.despensa.catalogos.productos.impl.CatalogoProductosImpl">
+		<property name="dao" ref="catalogoProductosDao" />
+	</bean>
+    	
+    <bean id="catalogoMarcas" class="org.icabanas.despensa.catalogos.marcas.impl.CatalogoMarcasImpl">
+    	<property name="dao" ref="catalogoMarcasDao" />
+    </bean>
+
+	<!-- Facades
+	<bean id="catalogoProductosFacade" class="org.icabanas.despensa.facades.CatalogoProductosFacade">
+		<property name="catalogoProductos" ref="catalogoProductos" />
+	</bean>     
+	 -->
+</beans>
+
+

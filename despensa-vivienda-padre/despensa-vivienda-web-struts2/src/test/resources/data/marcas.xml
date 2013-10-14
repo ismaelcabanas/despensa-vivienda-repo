@@ -1,0 +1,6 @@
+<!--?xml version='1.0' encoding='UTF-8'?--> 
+
+<dataset>
+	<MARCA id="1" nombre="Pascual" />
+	<MARCA id="2" nombre="Central Lechera Asturiana" />
+</dataset>

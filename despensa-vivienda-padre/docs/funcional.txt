@@ -1,0 +1,9 @@
+"Funcional" de la aplicación DESPENSA
+
+En el momento de realizar esta documentación ya estaba avanzada la aplicación. A partir de este momento, documentaré las mejoras que iré realizando 
+en la aplicación.
+
+1.1 Implementar paginación en los listados.
+1.2 El código de producto se debe generar programáticamente y no debe ser introducido por el usuario, por lo tanto, debe desaparecer de las páginas 
+de alta, edición y modificación de producto.
+1.3 En la aplicación web, no capturar excepciones de aplicación, lanzar excepciones hacia arriba y que las gestione una clase del framework

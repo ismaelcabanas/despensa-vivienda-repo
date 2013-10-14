@@ -1,0 +1,276 @@
+
+<zk xmlns:n="native">
+
+<n:link rel="stylesheet" type="text/css"	href="bootstrap/css/bootstrap.css"></n:link>
+	<n:link rel="stylesheet" type="text/css"	href="bootstrap/css/bootstrap-responsive.css"></n:link>
+	<n:link rel="stylesheet" type="text/css"	href="css/styles.css"></n:link>
+		
+        <n:div class="navbar navbar-fixed-top">
+            <n:div class="navbar-inner">
+                <n:div class="container-fluid">
+                    <n:a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <n:span class="icon-bar"></n:span>
+                     <n:span class="icon-bar"></n:span>
+                     <n:span class="icon-bar"></n:span>
+                    </n:a>
+                    <n:a class="brand" href="#">Admin Panel</n:a>
+                    <n:div class="nav-collapse collapse">
+                        <n:ul class="nav pull-right">
+                            <n:li class="dropdown">
+                                <n:a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <n:i class="icon-user"></n:i> Vincent Gabriel <n:i class="caret"></n:i>
+
+                                </n:a>
+                                <n:ul class="dropdown-menu">
+                                    <n:li>
+                                        <n:a tabindex="-1" href="#">Profile</n:a>
+                                    </n:li>
+                                    <n:li class="divider"></n:li>
+                                    <n:li>
+                                        <n:a tabindex="-1" href="login.html">Logout</n:a>
+                                    </n:li>
+                                </n:ul>
+                            </n:li>
+                        </n:ul>
+                        <n:ul class="nav">
+                            <n:li>
+                                <n:a href="#">Dashboard</n:a>
+                            </n:li>
+                            <n:li class="dropdown">
+                                <n:a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <n:b class="caret"></n:b>
+
+                                </n:a>
+                                <n:ul class="dropdown-menu" id="menu1">
+                                    <n:li>
+                                        <n:a href="#">Tools <n:i class="icon-arrow-right"></n:i>
+
+                                        </n:a>
+                                        <n:ul class="dropdown-menu sub-menu">
+                                            <n:li>
+                                                <n:a href="#">Reports</n:a>
+                                            </n:li>
+                                            <n:li>
+                                                <n:a href="#">Logs</n:a>
+                                            </n:li>
+                                            <n:li>
+                                                <n:a href="#">Errors</n:a>
+                                            </n:li>
+                                        </n:ul>
+                                    </n:li>
+                                    <n:li>
+                                        <n:a href="#">SEO Settings</n:a>
+                                    </n:li>
+                                    <n:li>
+                                        <n:a href="#">Other Link</n:a>
+                                    </n:li>
+                                    <n:li class="divider"></n:li>
+                                    <n:li>
+                                        <n:a href="#">Other Link</n:a>
+                                    </n:li>
+                                    <n:li>
+                                        <n:a href="#">Other Link</n:a>
+                                    </n:li>
+                                </n:ul>
+                            </n:li>
+                            <n:li class="dropdown">
+                                <n:a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Content <n:i class="caret"></n:i>
+
+                                </n:a>
+                                <n:ul class="dropdown-menu">
+                                    <n:li>
+                                        <n:a tabindex="-1" href="#">Blog</n:a>
+                                    </n:li>
+                                    <n:li>
+                                        <n:a tabindex="-1" href="#">News</n:a>
+                                    </n:li>
+                                    <n:li>
+                                        <n:a tabindex="-1" href="#">Custom Pages</n:a>
+                                    </n:li>
+                                    <n:li>
+                                        <n:a tabindex="-1" href="#">Calendar</n:a>
+                                    </n:li>
+                                    <n:li class="divider"></n:li>
+                                    <n:li>
+                                        <n:a tabindex="-1" href="#">FAQ</n:a>
+                                    </n:li>
+                                </n:ul>
+                            </n:li>
+                            <n:li class="dropdown">
+                                <n:a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Users <n:i class="caret"></n:i>
+
+                                </n:a>
+                                <n:ul class="dropdown-menu">
+                                    <n:li>
+                                        <n:a tabindex="-1" href="#">User List</n:a>
+                                    </n:li>
+                                    <n:li>
+                                        <n:a tabindex="-1" href="#">Search</n:a>
+                                    </n:li>
+                                    <n:li>
+                                        <n:a tabindex="-1" href="#">Permissions</n:a>
+                                    </n:li>
+                                </n:ul>
+                            </n:li>
+                        </n:ul>
+                    </n:div>
+                    <!--/.nav-collapse -->
+                </n:div>
+            </n:div>
+        </n:div>
+
+		<n:div class="container-fluid">
+            <n:div class="row-fluid">
+                <n:div class="span3" id="sidebar">
+                	
+                    <n:ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+<n:li class="dropdown">
+  <n:a href="#" data-toggle="dropdown" class="dropdown-toggle"><n:i class="icon-chevron-right"></n:i>Dropdown</n:a>
+  <n:ul class="dropdown-menu pull-right" id="menu1">
+    <n:li>
+        <n:a href="#">2-level Menu <n:i class="icon-arrow-right"></n:i></n:a>
+        <n:ul class="dropdown-menu sub-menu">
+            <n:li><n:a href="#">Action</n:a></n:li>
+            <n:li><n:a href="#">Another action</n:a></n:li>
+            
+        </n:ul>
+    </n:li>
+    <n:li><n:a href="#">Another action</n:a></n:li>
+    <n:li><n:a href="#">Something else here</n:a></n:li>
+  </n:ul>
+</n:li>                    	
+                        <n:li>
+                            <n:a href="#"><n:i class="icon-chevron-right"></n:i> Dashboard</n:a>                            
+                        </n:li>
+                        <n:li class="dropdown">
+                                <n:a href="#" data-toggle="dropdown" class="dropdown-toggle"><n:i class="icon-chevron-right"></n:i>Settings
+
+                                </n:a>
+                                <n:ul class="dropdown-menu" id="menu11">
+                                    <n:li>
+                                        <n:a href="#">Tools <n:i class="icon-arrow-right"></n:i>
+
+                                        </n:a>
+                                        <n:ul class="dropdown-menu sub-menu">
+                                            <n:li>
+                                                <n:a href="#">Reports</n:a>
+                                            </n:li>
+                                            <n:li>
+                                                <n:a href="#">Logs</n:a>
+                                            </n:li>
+                                            <n:li>
+                                                <n:a href="#">Errors</n:a>
+                                            </n:li>
+                                        </n:ul>
+                                    </n:li>
+                                    <n:li>
+                                        <n:a href="#">SEO Settings</n:a>
+                                    </n:li>
+                                    <n:li>
+                                        <n:a href="#">Other Link</n:a>
+                                    </n:li>
+                                    <n:li class="divider"></n:li>
+                                    <n:li>
+                                        <n:a href="#">Other Link</n:a>
+                                    </n:li>
+                                    <n:li>
+                                        <n:a href="#">Other Link</n:a>
+                                    </n:li>
+                                </n:ul>
+                            </n:li>
+                        <n:li>
+                            <n:a href="#"><n:i class="icon-chevron-right"></n:i> Calendar</n:a>
+                        </n:li>
+                        <n:li>
+                            <n:a href="#"><n:i class="icon-chevron-right"></n:i> Statistics (Charts)</n:a>
+                        </n:li>
+                        <n:li>
+                            <n:a href="#"><n:i class="icon-chevron-right"></n:i> Buttons and Icons</n:a>
+                        </n:li>
+<n:li class="dropdown">
+  <n:a href="#" data-toggle="dropdown" class="dropdown-toggle"><n:i class="icon-chevron-right"></n:i>Dropdown</n:a>
+  <n:ul class="dropdown-menu pull-right" id="menu12">
+    <n:li>
+        <n:a href="#">2-level Menu <n:i class="icon-chevron-right"></n:i></n:a>
+        <n:ul class="dropdown-menu sub-menu">
+            <n:li><n:a href="#">Action</n:a></n:li>
+            <n:li><n:a href="#">Another action</n:a></n:li>
+            
+        </n:ul>
+    </n:li>
+    <n:li><n:a href="#">Another action</n:a></n:li>
+    <n:li><n:a href="#">Something else here</n:a></n:li>
+  </n:ul>
+</n:li>                         
+                        <n:li>
+                            <n:a href="interface.html"><n:i class="icon-chevron-right"></n:i> UI and Interface</n:a>
+                        </n:li>
+                        <n:li>
+                            <n:a href="#"><n:span class="badge badge-success pull-right">731</n:span> Orders</n:a>
+                        </n:li>                        
+                    </n:ul>
+                </n:div>
+                <!--/span-->
+                
+                <n:div class="span9" id="content">
+                    <n:div class="row-fluid">
+                        <n:div class="alert alert-success">
+							<n:button type="button" class="close" data-dismiss="alert">x</n:button>
+                            <n:h4>Success</n:h4>
+                        	The operation completed successfully
+                        </n:div>
+                        <n:div class="navbar">
+                           	<n:div class="navbar-inner">
+	                               <n:ul class="breadcrumb">
+	                                   <n:i class="icon-chevron-left hide-sidebar"><n:a href='#' title="Hide Sidebar" rel='tooltip'><label value=" " /></n:a></n:i>
+	                                   <n:i class="icon-chevron-right show-sidebar" style="display:none;"><n:a href='#' title="Show Sidebar" rel='tooltip'><label value=" " /></n:a></n:i>
+	                                   <n:li>
+	                                       <n:a href="#">Dashboard</n:a> <n:span class="divider"><label value="/" /></n:span>	
+	                                   </n:li>
+	                                   <n:li>
+	                                       <n:a href="#">Settings</n:a> <n:span class="divider"><label value="/" /></n:span>	
+	                                   </n:li>
+	                                   <n:li class="active">Tools</n:li>
+	                               </n:ul>
+                           	</n:div>
+                        </n:div>
+                    </n:div>
+                    <n:div class="row-fluid">
+                        <!-- block -->
+                        <n:div class="block">
+                            <n:div class="navbar navbar-inner block-header">
+                                <n:div class="muted pull-left">Statistics</n:div>
+                                <n:div class="pull-right"><n:span class="badge badge-warning">View More</n:span>
+
+                                </n:div>
+                            </n:div>
+                            <n:div class="block-content collapse in">
+                                <n:div class="span6">
+                                    <n:div class="chart" data-percent="73">73</n:div>
+                                    <n:div class="chart-bottom-heading"><n:span class="label label-info">Visitors</n:span>
+
+                                    </n:div>
+                                </n:div>
+                                <n:div class="span6">
+                                    <n:div class="chart" data-percent="53">53</n:div>
+                                    <n:div class="chart-bottom-heading"><n:span class="label label-info">Page Views</n:span>
+
+                                    </n:div>
+                                </n:div>
+                             </n:div>
+                        </n:div>
+                        <!-- /block -->
+                    </n:div>                    
+                </n:div>
+            </n:div>
+            
+            <!--
+            <n:hr></n:hr>
+            <n:footer>
+                <n:p>Vincent Gabriel 2013</n:p>
+            </n:footer>
+            -->
+        </n:div>
+        <!--/.fluid-container-->
+        
+        <n:script type="text/javascript" src="bootstrap/js/jquery-1.7.2.min.js"></n:script>
+	<n:script type="text/javascript" src="bootstrap/js/bootstrap.js"></n:script>        
+	<n:script type="text/javascript" src="js/scripts.js"></n:script>
+</zk>
