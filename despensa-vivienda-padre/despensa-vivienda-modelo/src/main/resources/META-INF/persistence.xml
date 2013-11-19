@@ -1,6 +1,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
     <persistence-unit name="Despensa" transaction-type="RESOURCE_LOCAL">
     
+    	<class>org.icabanas.despensa.modelo.Categoria</class>
     	<class>org.icabanas.despensa.modelo.Marca</class>
     	<class>org.icabanas.despensa.modelo.Producto</class>    	
     	

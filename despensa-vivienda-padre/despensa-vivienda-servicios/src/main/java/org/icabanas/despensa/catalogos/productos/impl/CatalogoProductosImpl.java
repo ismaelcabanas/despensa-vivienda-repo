@@ -1,5 +1,6 @@
 package org.icabanas.despensa.catalogos.productos.impl;
 
+import org.icabanas.despensa.adaptadores.catalogos.marcas.MarcaAdapter;
 import org.icabanas.despensa.adaptadores.catalogos.productos.ProductoAdapter;
 import org.icabanas.despensa.catalogos.producto.dto.ProductoDto;
 import org.icabanas.despensa.catalogos.producto.dto.ProductoFiltro;
@@ -75,7 +76,7 @@ public class CatalogoProductosImpl extends AbstractGenericManager<Long, Producto
 		
 		// se crea y valida el producto
 		if(dto.getMarca() != null){
-			producto = Producto.registrar(dto.getCodigo(),dto.getNombre(),dto.getMarca().getId());
+			producto = Producto.registrar(dto.getCodigo(),dto.getNombre(),MarcaAdapter.toEntidad(dto.getMarca()));
 		}
 		else{
 			producto = Producto.registrar(dto.getCodigo(),dto.getNombre());

@@ -3,6 +3,7 @@ package org.icabanas.despensa.catalogos.marcas;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -10,22 +11,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hamcrest.core.IsEqual;
 import org.icabanas.despensa.catalogos.CRUDTest;
 import org.icabanas.despensa.catalogos.marca.dto.MarcaDto;
 import org.icabanas.despensa.catalogos.marca.dto.MarcaFiltro;
 import org.icabanas.despensa.catalogos.marcas.impl.CatalogoMarcasImpl;
 import org.icabanas.despensa.dao.catalogos.marca.ICatalogoMarcaDao;
 import org.icabanas.despensa.modelo.Marca;
-import org.icabanas.despensa.modelo.Producto;
 import org.icabanas.jee.api.integracion.dao.IFiltro;
 import org.icabanas.jee.api.integracion.dao.IGenericDao;
 import org.icabanas.jee.api.integracion.dao.Orden;
 import org.icabanas.jee.api.integracion.dao.consulta.OrderEnum;
 import org.icabanas.jee.api.integracion.manager.IGenericManager;
+import org.icabanas.jee.api.integracion.manager.exceptions.EliminarException;
+import org.icabanas.jee.api.integracion.manager.exceptions.ErrorValidacion;
+import org.icabanas.jee.api.integracion.manager.exceptions.ValidacionException;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -67,6 +73,32 @@ public class CatalogoMarcasTest extends CRUDTest<MarcaDto, Long, Marca>{
 		assertThat(listaMarcas.get(1).getNombre(), equalTo(marcas.get(1).getNombre()));
 	}
 
+	@Test
+	public void deberia_eliminar_marca_si_no_tiene_productos_asociados() throws Exception {
+		// PREPARACIÓN		
+		MarcaDto marca = new MarcaDto(1L, "Pascual");
+		MarcaFiltro filtro = new MarcaFiltro();
+		filtro.setNombre(marca.getNombre());
+		when(_mockDao.tieneProductosAsociados(marca.getId())).thenReturn(Boolean.TRUE);
+		
+		// EJECUCIÓN
+		EliminarException eex = null;
+		try{
+			catalogoMarcas.eliminar(marca.getId());
+			fail("Debería lanzar una excepción ya que no se puede eliminar una marca que tiene "
+					+ "productos asociados.");
+		}
+		catch(EliminarException ex){			
+			eex = ex;
+		}
+
+		// VERIFICACIÓN
+		ValidacionException vex = (ValidacionException) eex.getCause();
+		List<ErrorValidacion> listaErrores = vex.getListaExcepciones();
+		Assert.assertThat(1, IsEqual.equalTo(listaErrores.size()));
+		Assert.assertThat("error.marca.productos", IsEqual.equalTo((listaErrores.get(0)).getClaveMensaje()));
+		Mockito.verify(_mockDao).tieneProductosAsociados(marca.getId());
+	}
 	@Override
 	protected List<Marca> getTestDatosPaginacion() {
 		List<Marca> marcas = new ArrayList<Marca>();

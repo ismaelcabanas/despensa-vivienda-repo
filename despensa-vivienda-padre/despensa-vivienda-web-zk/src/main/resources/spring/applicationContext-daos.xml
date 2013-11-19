@@ -12,12 +12,12 @@
 		
 	</bean>
  	
-	<bean id="parentDao" abstract="true" class="org.icabanas.jee.api.integracion.dao.impl.AbstractGenericDao">
+	<bean id="parentDao" class="org.icabanas.jee.api.integracion.dao.impl.GenericDao">
 		<property name="gestorPersistencia" ref="gestorPersistencia" />
 	</bean>
 	
 	<!-- Configuración DAO de la entidad Producto  -->
-	<bean id="catalogoProductosDao" class="org.icabanas.jee.api.integracion.dao.impl.AbstractGenericDao" parent="parentDao">
+	<bean id="catalogoProductosDao" class="org.icabanas.jee.api.integracion.dao.impl.GenericDao" parent="parentDao">
 		<constructor-arg value="org.icabanas.despensa.modelo.Producto"/>
 		<property name="criteriaBuilderMap">
    			<map>
@@ -38,7 +38,7 @@
 	<bean id="marcaCriteriaBuilder" class="org.icabanas.despensa.dao.catalogos.marca.criteria.MarcaJPACriteriaBuilder" />
     
      <!-- Configuración DAO de la entidad Categoria  -->	
-    <bean id="catalogoCategoriasDao" class="org.icabanas.jee.api.integracion.dao.impl.AbstractGenericDao" parent="parentDao">
+    <bean id="catalogoCategoriasDao" class="org.icabanas.jee.api.integracion.dao.impl.GenericDao" parent="parentDao">
     	<constructor-arg value="org.icabanas.despensa.modelo.Categoria"/>
 		<property name="criteriaBuilderMap">
    			<map>

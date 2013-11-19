@@ -3,6 +3,7 @@ package org.icabanas.despensa.catalogos.categorias.impl;
 import org.icabanas.despensa.adaptadores.catalogos.categorias.CategoriaAdapter;
 import org.icabanas.despensa.catalogos.categoria.dto.CategoriaDto;
 import org.icabanas.despensa.catalogos.categorias.ICatalogoCategorias;
+import org.icabanas.despensa.dao.catalogos.categoria.ICatalogoCategoriaDao;
 import org.icabanas.despensa.modelo.Categoria;
 import org.icabanas.jee.api.integracion.dao.IGenericDao;
 import org.icabanas.jee.api.integracion.manager.exceptions.ValidacionException;
@@ -32,13 +33,20 @@ public class CatalogoCategoriasImpl extends
 	protected Categoria crearEntidad(CategoriaDto dto)
 			throws ValidacionException {
 		Categoria categoria = null;
-
+		
 		if(dto != null){
-			categoria = Categoria.registrar(dto.getNombre());
+			categoria = Categoria.registrar(dto.getNombre(), dto.getDescripcion());
 		}
 		
+		// compruebo si existe en el repositorio una marca con el mismo nombre
+		if(esCategoriaDuplicada(categoria)){
+			ValidacionException excepcion = new ValidacionException();
+			excepcion.anade("error.categoria.existe");
+			throw excepcion;
+		}				
+		
 		return categoria;
-	}
+	}	
 
 	@Override
 	protected void actualizarEntidad(Categoria categoria, CategoriaDto dto)
@@ -49,6 +57,19 @@ public class CatalogoCategoriasImpl extends
 		
 	}
 
-
+	/**
+	 * Comprueba si existe una categoría con el mismo nombre en el repositorio de almacenamiento.
+	 * 
+	 * @param categoria
+	 * 		El dto a validar.
+	 * @return
+	 * 		True si existe una categoría en el repositorio de almacenamiento con el mismo nombre que la categoría <code>dto</code>.
+	 * 		False, en caso contrario.
+	 */
+	private boolean esCategoriaDuplicada(Categoria categoria) {
+		ICatalogoCategoriaDao _dao = (ICatalogoCategoriaDao) getDao();
+		
+		return _dao.esCategoriaDuplicada(categoria);
+	}
 
 }

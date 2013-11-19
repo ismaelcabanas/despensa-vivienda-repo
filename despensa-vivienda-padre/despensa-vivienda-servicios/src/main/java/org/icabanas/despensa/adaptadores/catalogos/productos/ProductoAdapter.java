@@ -3,6 +3,7 @@ package org.icabanas.despensa.adaptadores.catalogos.productos;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.icabanas.despensa.adaptadores.catalogos.categorias.CategoriaAdapter;
 import org.icabanas.despensa.adaptadores.catalogos.marcas.MarcaAdapter;
 import org.icabanas.despensa.catalogos.producto.dto.ProductoDto;
 import org.icabanas.despensa.modelo.Producto;
@@ -17,6 +18,7 @@ public final class ProductoAdapter {
 			dto.setCodigo(entidad.getCodigo());
 			dto.setNombre(entidad.getNombre());
 			dto.setId(entidad.getId());
+			dto.setCategoria(CategoriaAdapter.toDto(entidad.getCategoria()));
 			dto.setMarca(MarcaAdapter.toDto(entidad.getMarca()));		
 		}
 		
@@ -39,6 +41,7 @@ public final class ProductoAdapter {
 			entidad.setId(dto.getId());
 			entidad.setCodigo(dto.getCodigo());
 			entidad.setNombre(dto.getNombre());
+			entidad.setCategoria(CategoriaAdapter.toEntidad(dto.getCategoria()));
 			entidad.setMarca(MarcaAdapter.toEntidad(dto.getMarca()));
 		}
 		

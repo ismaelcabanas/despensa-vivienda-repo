@@ -1,6 +1,7 @@
 package org.icabanas.despensa.catalogos.producto.dto;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.icabanas.despensa.catalogos.categoria.dto.CategoriaDto;
 import org.icabanas.despensa.catalogos.marca.dto.MarcaDto;
 import org.icabanas.jee.api.integracion.dto.BaseDto;
 
@@ -15,6 +16,8 @@ public class ProductoDto extends BaseDto<Long> {
 	
 	@NotEmpty
 	private String codigo;
+
+	private CategoriaDto categoria;
 
 	public ProductoDto(Long id, String codigo, String nombre, MarcaDto marca) {
 		super(id);
@@ -37,24 +40,24 @@ public class ProductoDto extends BaseDto<Long> {
 	}
 
 	public ProductoDto(String codigo, String nombre) {
-		super();
-		this.codigo = codigo;
-		this.nombre = nombre;
-		this.marca = null;
+		this(null,codigo,nombre,null,null);		
 	}
 
-	public ProductoDto(String codigo, String nombre, MarcaDto marca) {
-		super();
+	public ProductoDto(Long id, String codigo, String nombre, CategoriaDto categoria, MarcaDto marca) {
+		super(id);
 		this.codigo = codigo;
 		this.nombre = nombre;
+		this.categoria = categoria;
 		this.marca = marca;
 	}
 
 	public ProductoDto(Long id, String codigo, String nombre) {
-		super(id);
-		this.codigo = codigo;
-		this.nombre = nombre;
-		this.marca = null;
+		this(id,codigo,nombre,null,null);
+	}
+
+	public ProductoDto(String codigo, String nombre, CategoriaDto categoria,
+			MarcaDto marca) {
+		this(null,codigo,nombre,categoria,marca);		
 	}
 
 	public String getNombre() {
@@ -81,6 +84,15 @@ public class ProductoDto extends BaseDto<Long> {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+	
+	
+	public CategoriaDto getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaDto categoria) {
+		this.categoria = categoria;
 	}
 
 	@Override
@@ -125,4 +137,5 @@ public class ProductoDto extends BaseDto<Long> {
 			return false;
 		return true;
 	}
+
 }

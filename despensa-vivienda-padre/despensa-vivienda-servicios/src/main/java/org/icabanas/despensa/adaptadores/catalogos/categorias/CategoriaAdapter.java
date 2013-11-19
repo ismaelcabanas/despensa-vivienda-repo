@@ -12,6 +12,7 @@ public class CategoriaAdapter {
 			dto = new CategoriaDto();
 			dto.setId(entidad.getId());
 			dto.setNombre(entidad.getNombre());
+			dto.setDescripcion(entidad.getDescripcion());
 		}
 		
 		return dto;
@@ -23,6 +24,7 @@ public class CategoriaAdapter {
 		if(dto != null){
 			entidad = new Categoria();
 			entidad.setNombre(dto.getNombre());
+			entidad.setDescripcion(dto.getDescripcion());
 		}
 		return entidad;
 	}

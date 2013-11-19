@@ -3,9 +3,10 @@
 	<div class="navbar navbar-fixed-top">
     	<div class="navbar-inner">
         	<div class="container-fluid">
-	            <n:a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <n:span class="icon-bar"></n:span>
-	             <n:span class="icon-bar"></n:span>
-	             <n:span class="icon-bar"></n:span>
+	            <n:a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
+	            	<n:span class="icon-bar"></n:span>
+	             	<n:span class="icon-bar"></n:span>
+	             	<n:span class="icon-bar"></n:span>
 	            </n:a>
                 <n:a href="#"><label sclass="brand" value="${labels.texto.titulo.aplicacion}" /></n:a>
 	            <div class="nav-collapse collapse">

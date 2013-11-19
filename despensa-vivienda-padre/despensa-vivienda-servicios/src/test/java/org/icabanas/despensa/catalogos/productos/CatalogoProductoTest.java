@@ -10,10 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.icabanas.despensa.adaptadores.catalogos.categorias.CategoriaAdapter;
 import org.icabanas.despensa.catalogos.CRUDTest;
 import org.icabanas.despensa.catalogos.marca.dto.MarcaDto;
 import org.icabanas.despensa.catalogos.producto.dto.ProductoDto;
 import org.icabanas.despensa.catalogos.productos.impl.CatalogoProductosImpl;
+import org.icabanas.despensa.modelo.Categoria;
 import org.icabanas.despensa.modelo.Producto;
 import org.icabanas.jee.api.integracion.dao.IGenericDao;
 import org.icabanas.jee.api.integracion.manager.IGenericManager;
@@ -62,7 +64,7 @@ public class CatalogoProductoTest extends CRUDTest<ProductoDto, Long, Producto> 
 	@Override
 	protected Map<String, ProductoDto> getTestDtos() {		
 		Map<String, ProductoDto> testDtos = new HashMap<String, ProductoDto>();
-		ProductoDto dtoARegistrar = new ProductoDto("cod-0001", "Leche", new MarcaDto(1L));
+		ProductoDto dtoARegistrar = new ProductoDto("cod-0001", "Leche", CategoriaAdapter.toDto(Categoria.DESCATEGORIZADO), new MarcaDto(1L));
 		testDtos.put(CRUDTest.KEY_DTO_A_REGISTRAR, dtoARegistrar);
 		ProductoDto dtoNoValido = new ProductoDto();
 		testDtos.put(CRUDTest.KEY_DTO_NO_VALIDO, dtoNoValido);
@@ -126,7 +128,8 @@ public class CatalogoProductoTest extends CRUDTest<ProductoDto, Long, Producto> 
 	@Test
 	public void deberia_fallar_si_valida_producto_sin_nombre(){
 		// preparaciï¿½n
-		ProductoDto productoDto = new ProductoDto(1L,"prod-0001");		
+		ProductoDto productoDto = new ProductoDto(1L,"prod-0001");
+		productoDto.setCategoria(CategoriaAdapter.toDto(Categoria.DESCATEGORIZADO));
 		
 		// ejecuciï¿½n
 		ValidacionException testExcepcion = null;
@@ -148,6 +151,7 @@ public class CatalogoProductoTest extends CRUDTest<ProductoDto, Long, Producto> 
 		// preparaciï¿½n
 		ProductoDto productoDto = new ProductoDto();
 		productoDto.setNombre("Leche");
+		productoDto.setCategoria(CategoriaAdapter.toDto(Categoria.DESCATEGORIZADO));
 		
 		// ejecuciï¿½n
 		ValidacionException testExcepcion = null;
@@ -167,7 +171,7 @@ public class CatalogoProductoTest extends CRUDTest<ProductoDto, Long, Producto> 
 	@Test
 	public void deberia_validar_producto(){
 		// preparaciï¿½n
-		ProductoDto productoDto = new ProductoDto(1L,"prod-0001","Leche",new MarcaDto(1L));
+		ProductoDto productoDto = new ProductoDto(1L,"prod-0001","Leche", CategoriaAdapter.toDto(Categoria.DESCATEGORIZADO), new MarcaDto(1L));
 		boolean esValido = false;
 		
 		// ejecuciï¿½n
@@ -175,7 +179,7 @@ public class CatalogoProductoTest extends CRUDTest<ProductoDto, Long, Producto> 
 			esValido = _catalogoProductos.validar(productoDto);
 		}
 		catch (ValidacionException e) {
-			fail("No deberï¿½a lanzar excepciï¿½n");
+			fail("No debería lanzar excepción");
 		}
 		
 		// verificaciï¿½n

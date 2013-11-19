@@ -6,36 +6,45 @@ import java.util.Map;
 
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNull;
-import org.icabanas.despensa.catalogos.marca.dto.MarcaDto;
 import org.icabanas.despensa.catalogos.producto.dto.ProductoFiltro;
 import org.icabanas.despensa.dao.catalogos.marca.criteria.MarcaJPACriteriaBuilder;
-import org.icabanas.despensa.dao.catalogos.marca.impl.CatalogoMarcasDao;
 import org.icabanas.despensa.dao.catalogos.producto.criteria.ProductoJPACriteriaBuilder;
-import org.icabanas.despensa.dao.catalogos.producto.impl.CatalogoProductosDao;
-import org.icabanas.despensa.integracion.AbstractTestIT;
+import org.icabanas.despensa.modelo.Categoria;
 import org.icabanas.despensa.modelo.Marca;
 import org.icabanas.despensa.modelo.Producto;
 import org.icabanas.jee.api.integracion.dao.DaoException;
 import org.icabanas.jee.api.integracion.dao.ICriteriaBuilder;
 import org.icabanas.jee.api.integracion.dao.IPaginador;
 import org.icabanas.jee.api.integracion.dao.Pagina;
+import org.icabanas.jee.api.integracion.dao.impl.GenericDao;
 import org.icabanas.jee.api.integracion.dao.jpa.GestorPersistenciaJPA;
+import org.icabanas.jee.api.integracion.dao.jpa.it.AbstractTestIT;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class CatalogoProductosDaoIT extends AbstractTestIT {
 
-	private CatalogoProductosDao _dao;
+	private GenericDao<Long, Producto> _dao;
 	
-	private CatalogoMarcasDao _marcaDao;
+	private GenericDao<Long, Marca> _daoMarca;
+	
+	private GenericDao<Long, Categoria> _daoCategoria;
 
 	private Map<String, ICriteriaBuilder<Producto>> criteriaBuilderMap1;
+	
+	private Categoria categoria2;
+
+	private Categoria categoria1;
+
+	private Marca marca1;
+
+	private Marca marca2;
 
 	@Before
 	public void configura_test(){
 //		_dao = new CatalogoProductosDAOImpl(getEntityManager());
-		_dao = new CatalogoProductosDao();		
+		_dao = new GenericDao<Long, Producto>(Producto.class);		
 		GestorPersistenciaJPA gestorPersistencia1 = 
 				new GestorPersistenciaJPA(getEntityManager());
 		_dao.setGestorPersistencia(gestorPersistencia1);
@@ -44,18 +53,23 @@ public class CatalogoProductosDaoIT extends AbstractTestIT {
 		criteriaBuilderMap1.put("productoFiltro", productoCriteriaBuilder);
 		_dao.setCriteriaBuilderMap(criteriaBuilderMap1);
 		
-		_marcaDao = new CatalogoMarcasDao();		
+		_daoMarca = new GenericDao<Long, Marca>(Marca.class);		
 		GestorPersistenciaJPA gestorPersistencia = 
 				new GestorPersistenciaJPA(getEntityManager());
-		_marcaDao.setGestorPersistencia(gestorPersistencia);
+		_daoMarca.setGestorPersistencia(gestorPersistencia);
 		Map<String, ICriteriaBuilder<Marca>> criteriaBuilderMap = new HashMap<String, ICriteriaBuilder<Marca>>();
 		ICriteriaBuilder<Marca> marcaCriteriaBuilder = new MarcaJPACriteriaBuilder(Marca.class);
 		criteriaBuilderMap.put("marcaFiltro", marcaCriteriaBuilder);
-		_marcaDao.setCriteriaBuilderMap(criteriaBuilderMap);
-				
+		_daoMarca.setCriteriaBuilderMap(criteriaBuilderMap);
+		
+		_daoCategoria = new GenericDao<Long, Categoria>(Categoria.class);
+		GestorPersistenciaJPA gestorPersistencia2 = 
+				new GestorPersistenciaJPA(getEntityManager());
+		_daoCategoria.setGestorPersistencia(gestorPersistencia2);
+		
 		bateria_datos();
 	}
-	
+		
 	@Test
 	public void deberia_devolver_producto_por_codigo_producto(){
 		// preparación		
@@ -124,9 +138,10 @@ public class CatalogoProductosDaoIT extends AbstractTestIT {
 	
 	@Test
 	public void deberia_buscar_productos_por_criterio_busqueda_marca(){
-		// preparación
+		// PREPARACIÓN
+		// busco una marca		
 		ProductoFiltro filtro = new ProductoFiltro();
-		filtro.setMarca(new MarcaDto(1L));
+		filtro.setMarca(new Marca(marca1.getId()));
 		
 		// ejecución
 		List<Producto> resultado = _dao.buscar(filtro);
@@ -146,7 +161,7 @@ public class CatalogoProductosDaoIT extends AbstractTestIT {
 	public void deberia_buscar_productos_por_criterio_busqueda_todos_campos(){
 		// preparación
 		ProductoFiltro filtro = new ProductoFiltro();
-		filtro.setMarca(new MarcaDto(1L));
+		filtro.setMarca(new Marca(marca1.getId()));
 		filtro.setNombre("ech");
 		filtro.setCodigo("cod-0001");
 		
@@ -228,18 +243,23 @@ public class CatalogoProductosDaoIT extends AbstractTestIT {
 	}
 	
 	private void bateria_datos(){
-		Marca marca1 = new Marca("Pascual");
-		_marcaDao.crear(marca1);
-		Marca marca2 = new Marca("Hacendado");
-		_marcaDao.crear(marca2);
+		categoria2 = new Categoria("Otros");
+		_daoCategoria.crear(categoria2);
+		categoria1 = new Categoria("Lácteos");
+		_daoCategoria.crear(categoria1);
 		
-		Producto p1 = new Producto("Leche", marca1, "cod-0001");
-		Producto p2 = new Producto("Leche", marca2, "cod-0002");
-		Producto p3 = new Producto("Yogur", marca1, "cod-0003");
-		Producto p4 = new Producto("Atún", marca2, "cod-0004");
-		Producto p5 = new Producto("Arroz", marca2, "cod-0005");
-		Producto p6 = new Producto("Natillas", marca1, "cod-0006");
-		Producto p7 = new Producto("Macarrones", marca2, "cod-0007");
+		marca1 = new Marca("Pascual");
+		_daoMarca.crear(marca1);
+		marca2 = new Marca("Hacendado");
+		_daoMarca.crear(marca2);
+		
+		Producto p1 = new Producto("cod-0001", "Leche", categoria1, marca1);
+		Producto p2 = new Producto("cod-0002", "Leche", categoria1, marca2);
+		Producto p3 = new Producto("cod-0003", "Yogur", categoria1, marca1);
+		Producto p4 = new Producto("cod-0004", "Atún", categoria2, marca2);
+		Producto p5 = new Producto("cod-0005", "Arroz", categoria2, marca2);
+		Producto p6 = new Producto("cod-0006", "Natillas", categoria1, marca1);
+		Producto p7 = new Producto("cod-0007", "Macarrones", categoria2, marca2);
 		
 		_dao.crear(p1);
 		_dao.crear(p2);
@@ -248,6 +268,12 @@ public class CatalogoProductosDaoIT extends AbstractTestIT {
 		_dao.crear(p5);
 		_dao.crear(p6);
 		_dao.crear(p7);
+		
+	}
+
+	@Override
+	protected void generarDatos() {
+		// TODO Auto-generated method stub
 		
 	}
 }

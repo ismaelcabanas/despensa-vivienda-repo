@@ -1,14 +1,20 @@
 <!--?xml version='1.0' encoding='UTF-8'?--> 
 
 <dataset>
+	<CATEGORIA id="999990" nombre="No categorizado" />
+	<CATEGORIA id="999991" nombre="Lácteos" />
+	<CATEGORIA id="999992" nombre="Pescadería" />
+	<CATEGORIA id="999993" nombre="Carnicería" />
+	<CATEGORIA id="999994" nombre="Embutidos" />
+	
 	<MARCA id="999991" nombre="Pascual" />
 	<MARCA id="999992" nombre="Central Lechera Asturiana" />
 	
-	<PRODUCTO id="999991" codigo="cod-1" nombre="Leche" id_marca="999991" />
-	<PRODUCTO id="999992" codigo="cod-2" nombre="Leche" id_marca="999992" />
-	<PRODUCTO id="999993" codigo="cod-3" nombre="Galletas" />
-	<PRODUCTO id="999994" codigo="cod-4" nombre="Atún" />
-	<PRODUCTO id="999995" codigo="cod-5" nombre="Tomate" />
-	<PRODUCTO id="999996" codigo="cod-6" nombre="Nachos" />
-	<PRODUCTO id="999997" codigo="cod-7" nombre="Pasta" />	
+	<PRODUCTO id="999991" codigo="cod-1" nombre="Leche" id_marca="999991" id_categoria="999991"/>
+	<PRODUCTO id="999992" codigo="cod-2" nombre="Leche" id_marca="999992" id_categoria="999991"/>
+	<PRODUCTO id="999993" codigo="cod-3" nombre="Galletas" id_categoria="999990" />
+	<PRODUCTO id="999994" codigo="cod-4" nombre="Atún" id_categoria="999990" />
+	<PRODUCTO id="999995" codigo="cod-5" nombre="Tomate" id_categoria="999990" />
+	<PRODUCTO id="999996" codigo="cod-6" nombre="Nachos" id_categoria="999990" />
+	<PRODUCTO id="999997" codigo="cod-7" nombre="Pasta" id_categoria="999990" />	
 </dataset>

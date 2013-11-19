@@ -86,53 +86,6 @@
 					 	totalSize="@load(not empty vm.pagina.datos ? vm.pagina.numeroTotalRegistros : 0)" 
 					 	activePage="@load(not empty vm.pagina.datos ? vm.pagina.pagina-1 : 0)"
 					 	onPaging="@command('paginar',paginaActiva=self.activePage)" />
-	
-	
-		<!--
-					<n:table class="table">
-						<n:caption>Resultado de la busqueda</n:caption>
-						<n:thead>
-							<n:tr>
-								<n:th>${labels.producto.codigo}</n:th>
-								<n:th>${labels.producto.nombre}</n:th>
-								<n:th>${labels.producto.marca}</n:th>
-								<n:th>${labels.texto.listado.acciones}</n:th>
-							</n:tr>
-						</n:thead>
-						<n:tbody>
-							<n:tr>
-								<n:td>cod-1</n:td>
-								<n:td>Lecha</n:td>
-								<n:td>Central lechera Asturiana</n:td>
-								<n:td>
-									<n:button class="btn btn-mini"><n:i class="icon-eye-open"></n:i> Ver</n:button>
-									<n:button class="btn btn-mini"><n:i class="icon-eye-open"></n:i> Editar</n:button>
-									<n:button class="btn btn-mini"><n:i class="icon-eye-open"></n:i> Elimninar</n:button>
-								</n:td>
-							</n:tr>
-							<n:tr>
-								<n:td>cod-1</n:td>
-								<n:td>Lecha</n:td>
-								<n:td>Central lechera Asturiana</n:td>
-								<n:td>
-									<n:button class="btn btn-mini"><n:i class="icon-eye-open"></n:i> Ver</n:button>
-									<n:button class="btn btn-mini"><n:i class="icon-eye-open"></n:i> Editar</n:button>
-									<n:button class="btn btn-mini"><n:i class="icon-eye-open"></n:i> Elimninar</n:button>
-								</n:td>
-							</n:tr>
-							<n:tr>
-								<n:td>cod-1</n:td>
-								<n:td>Lecha</n:td>
-								<n:td>Central lechera Asturiana</n:td>
-								<n:td>
-									<n:button class="btn btn-mini"><n:i class="icon-eye-open"></n:i> Ver</n:button>
-									<n:button class="btn btn-mini"><n:i class="icon-eye-open"></n:i> Editar</n:button>
-									<n:button class="btn btn-mini"><n:i class="icon-eye-open"></n:i> Elimninar</n:button>
-								</n:td>
-							</n:tr>
-						</n:tbody>
-					</n:table>
-		-->				
 							
 				</panelchildren>
 			</panel>

@@ -5,15 +5,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hamcrest.core.IsEqual;
+import org.icabanas.despensa.adaptadores.catalogos.categorias.CategoriaAdapter;
 import org.icabanas.despensa.catalogos.CRUDTest;
 import org.icabanas.despensa.catalogos.categoria.dto.CategoriaDto;
 import org.icabanas.despensa.catalogos.categorias.impl.CatalogoCategoriasImpl;
+import org.icabanas.despensa.dao.catalogos.categoria.ICatalogoCategoriaDao;
 import org.icabanas.despensa.modelo.Categoria;
 import org.icabanas.jee.api.integracion.dao.IGenericDao;
 import org.icabanas.jee.api.integracion.manager.IGenericManager;
+import org.icabanas.jee.api.integracion.manager.exceptions.ErrorValidacion;
+import org.icabanas.jee.api.integracion.manager.exceptions.RegistrarException;
+import org.icabanas.jee.api.integracion.manager.exceptions.ValidacionException;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -22,13 +31,39 @@ public class CatalogoCategoriasTest extends CRUDTest<CategoriaDto, Long, Categor
 	private ICatalogoCategorias catalogoCategorias;
 	
 	@Mock
-	private IGenericDao<Long, Categoria> _mockDao;
+	private ICatalogoCategoriaDao _mockDao;
 	
 	@Before
 	public void configuraTest(){
 		catalogoCategorias = new CatalogoCategoriasImpl(_mockDao);
 	}
 
+	@Test
+	public void deberia_lanzar_una_excepcion_al_registrar_una_categoria_con_un_nombre_de_una_categoria_existente() throws Exception {
+		// PREPARACIÓN
+		CategoriaDto catExistente = getTestDtos().get(CRUDTest.KEY_DTO_A_REGISTRAR);
+		String nombreCat = catExistente.getNombre();		
+		CategoriaDto cat = new CategoriaDto(nombreCat);
+		Mockito.when(_mockDao.esCategoriaDuplicada(CategoriaAdapter.toEntidad(cat))).thenReturn(Boolean.TRUE);
+		
+		// EJECUCIÓN
+		RegistrarException rex = null;
+		try{
+			catalogoCategorias.registrar(cat);
+			Assert.fail("Debería lanzar la excepción RegistrarException.");
+		}
+		catch(RegistrarException e){
+			rex = e;
+		}
+
+		// VERIFICACIÓN
+		ValidacionException vex = (ValidacionException) rex.getCause();
+		List<ErrorValidacion> listaErrores = vex.getListaExcepciones();
+		Assert.assertThat(1, IsEqual.equalTo(listaErrores.size()));
+		Assert.assertThat("error.categoria.existe", IsEqual.equalTo((listaErrores.get(0)).getClaveMensaje()));
+		Mockito.verify(_mockDao).esCategoriaDuplicada(CategoriaAdapter.toEntidad(cat));
+	}
+	
 	@Override
 	protected List<Categoria> getTestDatosPaginacion() {
 		List<Categoria> categorias = new ArrayList<Categoria>();
@@ -87,6 +122,9 @@ public class CatalogoCategoriasTest extends CRUDTest<CategoriaDto, Long, Categor
 		return testDtos;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.icabanas.despensa.catalogos.CRUDTest#getTestDtos()
+	 */
 	@Override
 	protected Map<String, CategoriaDto> getTestDtos() {
 		Map<String, CategoriaDto> dtos = new HashMap<String, CategoriaDto>();

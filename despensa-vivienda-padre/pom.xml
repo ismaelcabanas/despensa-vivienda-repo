@@ -31,6 +31,7 @@
   	<module>despensa-vivienda-web</module>
     <!-- <module>despensa-vivienda-web-spring3</module> -->
     <module>despensa-vivienda-web-zk</module>
+    <module>despensa-vivienda-especificaciones</module>
   </modules>  
   	
   <build>

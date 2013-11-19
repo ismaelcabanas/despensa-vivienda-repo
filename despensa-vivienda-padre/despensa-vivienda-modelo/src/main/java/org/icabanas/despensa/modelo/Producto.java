@@ -15,44 +15,31 @@ public class Producto extends EntidadBase<Long>{
 	private String nombre; 
 		
 	private Marca marca;
-	
+		
 	private String codigo;
-	
-	public Producto(String nombre, String codigo) {
-		this.nombre = nombre;
-		this.codigo = codigo;
-		this.marca = null;
-	}		
+
+	private Categoria categoria;
 	
 	public Producto() {}
-
 	
-	public Producto(String nombre, String marca, String codigo) {
-		super();
-		this.nombre = nombre;
-		if(marca != null)
-			this.marca = new Marca(marca);
-		else
-			this.marca = null;
-		this.codigo = codigo;
+	public Producto(String nombre, String codigo) {
+		this(codigo,nombre,Categoria.DESCATEGORIZADO,null);
+	}				
+
+	public Producto(String codigo, String nombre, Marca marca) {
+		this(codigo,nombre,Categoria.DESCATEGORIZADO,marca);		
 	}
 
-	public Producto(String nombre, Marca marca, String codigo) {
-		super();
+	public Producto(String codigo, String nombre, Categoria categoria,
+			Marca marca) {
+		this.codigo = codigo;
 		this.nombre = nombre;
+		this.categoria = categoria;
 		this.marca = marca;
-		this.codigo = codigo;
 	}
 
-	public Producto(String nombre, String codigo, Long idMarca) {
-		this.nombre = nombre;
-		this.codigo = codigo;
-		if(idMarca != null){
-			this.marca = new Marca(idMarca);
-		}
-		else{
-			this.marca = null;
-		}
+	public Producto(String codigo, String nombre, Categoria categoria) {		
+		this(codigo,nombre,categoria,null);
 	}
 
 	@Column(name="nombre",nullable=false,length=50)
@@ -76,7 +63,17 @@ public class Producto extends EntidadBase<Long>{
 	public Marca getMarca() {
 		return marca;
 	}
-
+	
+	@ManyToOne(optional=false)
+	@JoinColumn(name="id_categoria")
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+	
 	public void setMarca(Marca marca) {
 		this.marca = marca;
 	}
@@ -105,37 +102,7 @@ public class Producto extends EntidadBase<Long>{
 		return sb.toString();
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((marca == null) ? 0 : marca.hashCode());
-		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Producto other = (Producto) obj;
-		if (marca == null) {
-			if (other.marca != null)
-				return false;
-		} else if (!marca.equals(other.marca))
-			return false;
-		if (nombre == null) {
-			if (other.nombre != null)
-				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
-		return true;
-	}
-
+	
 //	public Producto crea(String nombre, String nombreMarca) {
 //		Marca marca = null;
 //		
@@ -155,6 +122,31 @@ public class Producto extends EntidadBase<Long>{
 //		return crea(nombre,null);
 //	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Producto other = (Producto) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
+	}
+
 	public boolean valida() throws ValidacionException {
 		ValidacionException excepcion = new ValidacionException();
 		
@@ -162,7 +154,10 @@ public class Producto extends EntidadBase<Long>{
 			excepcion.anade("producto.nombre","error.producto.nombre.requerido");
 		}
 		if(codigo == null || codigo.equals("")){
-			excepcion.anade("producto.codigo", "error.producto.codigo.requerido");
+			excepcion.anade("producto.codigo", "error.producto.codigo.requerido");			
+		}
+		if(categoria == null){
+			excepcion.anade("producto.categoria", "error.producto.categoria.requerido");
 		}
 //		if(marca == null){
 //			excepcion.anade(CAMPO_MARCA, "producto.marca.requerido");
@@ -190,19 +185,32 @@ public class Producto extends EntidadBase<Long>{
 	 * 
 	 * @param codigo Código del producto.
 	 * @param nombre Nombre del producto.
-	 * @param idMarca Identificador de la marca del producto.
+	 * @param marca Identificador de la marca del producto.
 	 * @return
 	 * @throws ValidacionException Si la instancia de la clase no es válida.
 	 */
 	public static Producto registrar(String codigo, String nombre,
-			Long idMarca) throws ValidacionException {
-		Producto producto = new Producto(nombre,codigo,idMarca);
+			Marca marca) throws ValidacionException {
+		Producto producto = new Producto(codigo,nombre,marca);
 		
 		if(producto.valida())
 			return producto;
 		
 		return null;
 	}
+	
+	/**
+	 * @param codigo
+	 * @param nombre
+	 * @param categoria
+	 * @return
+	 * @throws ValidacionException
+	 */
+	public static Producto registrar(String codigo, String nombre,
+			Categoria categoria) throws ValidacionException {
+		return registrar(codigo, nombre, categoria, null);
+	}
+	
 
 	/**
 	 * Método que crea una instancia de la clase.
@@ -213,7 +221,27 @@ public class Producto extends EntidadBase<Long>{
 	 * @throws ValidacionException Si la instancia de la clase no es válida.
 	 */
 	public static Producto registrar(String codigo, String nombre) throws ValidacionException {
-		return registrar(codigo,nombre,null);
+		return registrar(codigo,nombre,Categoria.DESCATEGORIZADO,null);
+	}
+
+	/**
+	 * Crea una instancia de la clase.
+	 * 
+	 * @param codigo
+	 * @param nombre
+	 * @param categoria
+	 * @param marca
+	 * @throws ValidacionException
+	 * @return
+	 */
+	public static Producto registrar(String codigo, String nombre,
+			Categoria categoria, Marca marca) throws ValidacionException{
+		Producto producto = new Producto(codigo, nombre, categoria, marca);
+		
+		if(producto.valida())
+			return producto;
+		
+		return null;
 	}
 
 	/**
@@ -244,6 +272,5 @@ public class Producto extends EntidadBase<Long>{
 	public void actualizar(String codigo, String nombre) throws ValidacionException {
 		actualizar(codigo, nombre, null);
 	}
-	
 	
 }

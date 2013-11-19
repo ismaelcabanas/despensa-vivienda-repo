@@ -11,16 +11,16 @@ import org.hamcrest.core.IsNull;
 import org.icabanas.despensa.catalogos.marca.dto.MarcaFiltro;
 import org.icabanas.despensa.dao.catalogos.marca.criteria.MarcaJPACriteriaBuilder;
 import org.icabanas.despensa.dao.catalogos.marca.impl.jpa.CatalogoMarcaDao;
-import org.icabanas.despensa.dao.catalogos.producto.impl.CatalogoProductosDao;
-import org.icabanas.despensa.integracion.AbstractTestIT;
+import org.icabanas.despensa.modelo.Categoria;
 import org.icabanas.despensa.modelo.Marca;
 import org.icabanas.despensa.modelo.Marca_;
 import org.icabanas.despensa.modelo.Producto;
 import org.icabanas.jee.api.integracion.dao.ICriteriaBuilder;
 import org.icabanas.jee.api.integracion.dao.Orden;
 import org.icabanas.jee.api.integracion.dao.consulta.OrderEnum;
-import org.icabanas.jee.api.integracion.dao.impl.AbstractGenericDao;
+import org.icabanas.jee.api.integracion.dao.impl.GenericDao;
 import org.icabanas.jee.api.integracion.dao.jpa.GestorPersistenciaJPA;
+import org.icabanas.jee.api.integracion.dao.jpa.it.AbstractTestIT;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,14 +28,17 @@ import org.junit.Test;
 public class CatalogoMarcasDaoIT extends AbstractTestIT{
 
 	private CatalogoMarcaDao _dao;
-	private CatalogoProductosDao _daoProducto;
+	private GenericDao<Long, Producto> _daoProducto;
+	private GenericDao<Long, Categoria> _daoCategoria;
+	private Categoria categoriaPorDefecto;
 
 	@Before
 	public void configura_test(){
 //		_dao = new CatalogoMarcasDAOImpl(getEntityManager());
 		// creo la instancia del DAO
 		_dao = new CatalogoMarcaDao();
-		_daoProducto = new CatalogoProductosDao();
+		_daoProducto = new GenericDao<Long, Producto>();
+		_daoCategoria = new GenericDao<Long, Categoria>();
 		
 		// creo la instancia del creador de Criteria
 		Map<String, ICriteriaBuilder<Marca>> criteriaBuilderMap = new HashMap<String, ICriteriaBuilder<Marca>>();
@@ -52,8 +55,55 @@ public class CatalogoMarcasDaoIT extends AbstractTestIT{
 		// establezco el gestor de persistencia al DAO
 		_dao.setGestorPersistencia(gestorPersistencia);
 		_daoProducto.setGestorPersistencia(gestorPersistencia);
+		_daoCategoria.setGestorPersistencia(gestorPersistencia);
+		
+		// creo la categoría por defecto
+		categoriaPorDefecto = new Categoria("Prueba Categoría");
+		_daoCategoria.crear(categoriaPorDefecto);
+		
 		// establezco el criteriaBuilder
 		_dao.setCriteriaBuilderMap(criteriaBuilderMap);
+	}
+	
+	@Test
+	public void deberia_crear_marca(){
+		// PREPARACIÓN
+		Marca marca = new Marca("Una Marca");
+		
+		// EJECUCIÓN		
+		_dao.crear(marca);
+		
+		// VERIFICACIÓN
+		Assert.assertThat(marca.getId(), IsNull.notNullValue());
+	}
+	
+	@Test
+	public void deberia_actualizar_marca(){
+		// PREPARACIÓN
+		Marca marca = new Marca("Una Marca");
+		_dao.crear(marca);
+		marca.setNombre("Una marca modificada");
+		
+		// EJECUCIÓN
+		_dao.modificar(marca);
+		
+		// VERIFICACIÓN
+		Marca marcaActualizada = _dao.buscarPorId(marca.getId());
+		Assert.assertThat(marcaActualizada.getNombre(), IsEqual.equalTo("Una marca modificada"));
+	}
+	
+	@Test
+	public void deberia_eliminar_marca(){
+		// PREPARACIÓN
+		Marca marca = new Marca("Una Marca");
+		_dao.crear(marca);
+		
+		// EJECUCIÓN
+		_dao.eliminar(marca);
+		
+		// VERIFICACIÓN
+		Marca marcaEliminada = _dao.buscarPorId(marca.getId());
+		Assert.assertThat(marcaEliminada, IsNull.nullValue());
 	}
 	
 	@Test
@@ -105,8 +155,12 @@ public class CatalogoMarcasDaoIT extends AbstractTestIT{
 		// creo la marca
 		Marca marca1 = new Marca("Lauki");
 		_dao.crear(marca1);
+		// creo una categoría
+		Categoria categoria = new Categoria("Lácteos");
+		_daoCategoria.crear(categoria);
+		
 		// creo un producto de la marca creada anteriormente		
-		Producto producto = new Producto("Leche", marca1, "cod-1");
+		Producto producto = new Producto("cod-1", "Leche", categoria, marca1);
 		_daoProducto.crear(producto);
 		
 		// EJECUCIÓN
@@ -123,7 +177,7 @@ public class CatalogoMarcasDaoIT extends AbstractTestIT{
 		Marca marca1 = new Marca("Lauki");
 		_dao.crear(marca1);
 		// creo un producto de la marca creada anteriormente
-		Producto producto = new Producto("Leche", marca1, "cod-1");
+		Producto producto = new Producto("cod-1", "Leche", categoriaPorDefecto, marca1);
 		_daoProducto.crear(producto);
 		
 		// EJECUCIÓN
@@ -131,6 +185,12 @@ public class CatalogoMarcasDaoIT extends AbstractTestIT{
 		
 		// VERIFICACIÓN
 		Assert.assertThat(resultado, Is.is(Boolean.FALSE));		
+	}
+
+	@Override
+	protected void generarDatos() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 //	@Test(expected=DaoException.class)	

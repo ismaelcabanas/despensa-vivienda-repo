@@ -1,7 +1,7 @@
 package org.icabanas.despensa.catalogos.producto.dto;
 
 import org.apache.commons.lang.StringUtils;
-import org.icabanas.despensa.catalogos.marca.dto.MarcaDto;
+import org.icabanas.despensa.modelo.Marca;
 import org.icabanas.jee.api.integracion.dao.FiltroBean;
 
 public class ProductoFiltro extends FiltroBean {
@@ -12,7 +12,7 @@ public class ProductoFiltro extends FiltroBean {
 	
 	private String codigo;
 	
-	private MarcaDto marca;
+	private Marca marca;
 	
 	
 
@@ -39,11 +39,11 @@ public class ProductoFiltro extends FiltroBean {
 		this.codigo = codigo;
 	}
 	
-	public MarcaDto getMarca() {
+	public Marca getMarca() {
 		return marca;
 	}
 
-	public void setMarca(MarcaDto marca) {
+	public void setMarca(Marca marca) {
 		this.marca = marca;
 	}
 

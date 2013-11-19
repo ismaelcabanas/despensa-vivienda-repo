@@ -5,17 +5,15 @@ import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Properties;
 
+import org.icabanas.despensa.util.FicheroConfiguracion;
 //import org.dbunit.database.DatabaseConnection;
 //import org.dbunit.database.IDatabaseConnection;
 //import org.dbunit.dataset.CompositeDataSet;
 //import org.dbunit.dataset.IDataSet;
 //import org.dbunit.dataset.xml.FlatXmlDataSet;
 //import org.dbunit.operation.DatabaseOperation;
-import org.icabanas.despensa.util.FicheroConfiguracion;
 import org.icabanas.despensa.web.integracion.actions.pages.ErrorPage;
 import org.icabanas.despensa.web.integracion.actions.pages.PageException;
 import org.junit.After;
@@ -24,7 +22,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.InputSource;
 
 public abstract class AbstractBaseIT {
 

@@ -108,7 +108,7 @@ public abstract class CRUDTest<Dto extends Serializable, Id extends Serializable
 	}
 	
 	@Test
-	public void deberia_modificar_producto(){
+	public void deberia_modificar_entidad(){
 		// preparaciï¿½n	
 		Dto dtoAModificar = getTestDtos().get(KEY_DTO_A_MODIFICAR);
 		Dto dtoEsperado = getTestDtoEsperados().get(KEY_DTO_ESPERADO_MODIFICAR);		
@@ -265,16 +265,16 @@ public abstract class CRUDTest<Dto extends Serializable, Id extends Serializable
 	}
 
 	/**
-	 * Devuelve una lista de entidades resultado de la paginación.
 	 * 
 	 * @return
+	 * 		{@link List} lista de entidades utilizados para los test de paginación.
 	 */
 	protected abstract List<Entidad> getTestDatosPaginacion();
 
 	/**
-	 * Recupera la entidades que nos sirven para los test.
 	 * 
 	 * @return
+	 * 		{@link Map} con Entidades utilizadas para los test.
 	 */
 	protected abstract Map<String,Entidad> getTestEntidades();
 
@@ -291,16 +291,16 @@ public abstract class CRUDTest<Dto extends Serializable, Id extends Serializable
 	protected abstract IGenericManager<Id, Dto> getServicio();
 
 	/**
-	 * Dto esperado después de registrar el dto.
 	 * 
 	 * @return
+	 * 		{@link Map} con Dtos esperados como resultado de los test.
 	 */
 	protected abstract Map<String, Dto> getTestDtoEsperados();
 
 	/**
-	 * Dto a registrar.
 	 * 
 	 * @return
+	 * 		{@link Map} con Dtos utilizados para los test.
 	 */
 	protected abstract Map<String, Dto> getTestDtos();
 }

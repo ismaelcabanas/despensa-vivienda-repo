@@ -8,6 +8,8 @@ public class CategoriaDto extends BaseDto<Long>{
 	@NotEmpty
 	private String nombre;
 	
+	private String descripcion;
+	
 	public CategoriaDto(String nombre) {
 		this.nombre = nombre;
 	}
@@ -20,6 +22,11 @@ public class CategoriaDto extends BaseDto<Long>{
 		this.nombre = nombre;				
 	}
 
+	public CategoriaDto(String nombre, String descripcion) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	public String getNombre() {
@@ -30,9 +37,21 @@ public class CategoriaDto extends BaseDto<Long>{
 		this.nombre = nombre;
 	}
 
+	
+	public String getDescripcion() {
+		return (descripcion != null ? descripcion : "");
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	
+
 	@Override
 	public String toString() {
-		return "CategoriaDto [nombre=" + nombre + ", getId()=" + getId() + "]";
+		return "CategoriaDto [nombre=" + nombre + ", descripcion="
+				+ descripcion + "]";
 	}
 
 	@Override

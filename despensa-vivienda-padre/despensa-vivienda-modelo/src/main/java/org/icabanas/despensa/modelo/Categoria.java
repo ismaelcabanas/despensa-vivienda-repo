@@ -2,16 +2,27 @@ package org.icabanas.despensa.modelo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.icabanas.jee.api.integracion.manager.exceptions.ValidacionException;
 
 @Entity
 @Table(name="Categoria")
+@NamedQueries({@NamedQuery(name="categoriaTieneProductosAsociados", query="SELECT COUNT(p) FROM Producto p WHERE p.categoria.id = :id"),
+	@NamedQuery(name="esCategoriaDuplicada", query="SELECT COUNT(c) FROM Categoria c WHERE UPPER(c.nombre) LIKE :nombre")})
 public class Categoria extends EntidadBase<Long> {
 
+	public static final Categoria DESCATEGORIZADO = new Categoria(-1L);
+	
 	private String nombre;
+	
+	private String descripcion;
 
+	public Categoria(Long id){
+		setId(id);
+	}
 	public Categoria(String nombre) {
 		this.nombre = nombre;
 	}
@@ -19,6 +30,11 @@ public class Categoria extends EntidadBase<Long> {
 	public Categoria() {
 	}
 
+	public Categoria(String nombre, String descripcion) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+	}
+	
 	@Override
 	public boolean esVacia() {
 		if(nombre == null || nombre.equals("")){
@@ -57,6 +73,15 @@ public class Categoria extends EntidadBase<Long> {
 		
 		return null;
 	}
+	
+	public static Categoria registrar(String nombre, String descripcion) throws ValidacionException {
+		Categoria categoria = new Categoria(nombre, descripcion);
+		
+		if(categoria.valida())
+			return categoria;
+		
+		return null;
+	}
 
 	@Column(nullable=false,length=50,unique=true)
 	public String getNombre() {
@@ -66,7 +91,14 @@ public class Categoria extends EntidadBase<Long> {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
+	
+	@Column(nullable=true,length=250)
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 	public void actualizar(String nuevoNombre) throws ValidacionException {
 		this.nombre = nuevoNombre;
 		
@@ -97,11 +129,12 @@ public class Categoria extends EntidadBase<Long> {
 			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		sb.append(nombre);
-		return sb.toString();
-	}
+		return "Categoria [nombre=" + nombre + ", descripcion=" + descripcion
+				+ "]";
+	}	
+
+	
 }

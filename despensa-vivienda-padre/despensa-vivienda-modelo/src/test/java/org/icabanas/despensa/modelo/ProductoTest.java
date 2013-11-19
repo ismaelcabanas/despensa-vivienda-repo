@@ -26,40 +26,70 @@ public class ProductoTest {
 	@Test
 	public void deberia_registrar_un_producto(){
 		// preparación
+		String codigo = "prod-001";
+		String nombre = "Leche";
+		Marca marca = new Marca(1L);
 		
 		// ejecución
-		Producto test = null;
-		try {
-			test = Producto.registrar("prod-001", "Leche", 1L);
+		Producto test = null;		
+		try {			
+			test = Producto.registrar(codigo, nombre, marca);
 		} catch (ValidacionException e) {
 			fail("Debería registrar el producto.");
 		}
 		
 		// verificación
 		assertThat(test, notNullValue());
-		assertThat(test.getCodigo(), equalTo("prod-001"));
-		assertThat(test.getNombre(), equalTo("Leche"));
+		assertThat(test.getCodigo(), equalTo(codigo));
+		assertThat(test.getNombre(), equalTo(nombre));
 		assertThat(test.getMarca(), notNullValue());
 		assertThat(test.getMarca().getId(), equalTo(1L));
+		assertThat(test.getCategoria().getId(), equalTo(-1L));
 	}
 	
 	@Test
 	public void deberia_registrar_un_producto_sin_especificar_marca(){
 		// preparación
+		String codigo = "prod-001";
+		String nombre = "Leche";
 		
 		// ejecución
 		Producto test = null;
 		try {
-			test = Producto.registrar("prod-001", "Leche");
+			test = Producto.registrar(codigo, nombre);
 		} catch (ValidacionException e) {
 			fail("Debería registrar el producto.");
 		}
 		
 		// verificación
 		assertThat(test, notNullValue());
-		assertThat(test.getCodigo(), equalTo("prod-001"));
-		assertThat(test.getNombre(), equalTo("Leche"));
-		assertThat(test.getMarca(), nullValue());				
+		assertThat(test.getCodigo(), equalTo(codigo));
+		assertThat(test.getNombre(), equalTo(nombre));
+		assertThat(test.getMarca(), nullValue());	
+		assertThat(test.getCategoria().getId(), equalTo(-1L));
+	}
+	
+	@Test
+	public void deberia_registrar_un_producto_con_categoria(){
+		// preparación
+		String codigo = "prod-001";
+		String nombre = "Leche";
+		Categoria categoria = new Categoria(1L);
+		
+		// ejecución
+		Producto test = null;
+		try {
+			test = Producto.registrar(codigo, nombre, categoria);
+		} catch (ValidacionException e) {
+			fail("Debería registrar el producto.");
+		}
+		
+		// verificación
+		assertThat(test, notNullValue());
+		assertThat(test.getCodigo(), equalTo(codigo));
+		assertThat(test.getNombre(), equalTo(nombre));
+		assertThat(test.getMarca(), nullValue());	
+		assertThat(test.getCategoria().getId(), equalTo(-1L));
 	}
 	
 	@Test(expected=ValidacionException.class)
@@ -68,7 +98,7 @@ public class ProductoTest {
 		
 		// ejecución
 		Producto test = null;
-		test = Producto.registrar("prod-001", null, 1L);
+		test = Producto.registrar("prod-001", null);
 				
 		// verificación
 					
@@ -80,7 +110,7 @@ public class ProductoTest {
 		
 		// ejecución
 		Producto test = null;
-		test = Producto.registrar("prod-001", "", 1L);
+		test = Producto.registrar("prod-001", "");
 				
 		// verificación
 					
@@ -92,7 +122,7 @@ public class ProductoTest {
 		
 		// ejecución
 		Producto test = null;
-		test = Producto.registrar(null, "Leche", 1L);
+		test = Producto.registrar(null, "Leche");
 				
 		// verificación
 					
@@ -104,7 +134,7 @@ public class ProductoTest {
 		
 		// ejecución
 		Producto test = null;
-		test = Producto.registrar("", "Leche", 1L);
+		test = Producto.registrar("", "Leche");
 				
 		// verificación
 					
@@ -126,6 +156,7 @@ public class ProductoTest {
 		_producto.setCodigo("cod1");
 		_producto.setMarca("Parmalat");
 		_producto.setNombre("Leche");
+		_producto.setCategoria(Categoria.DESCATEGORIZADO);
 		
 		// ejecución
 		boolean esValido;
@@ -144,11 +175,59 @@ public class ProductoTest {
 		// preparación
 		_producto.setCodigo("cod1");
 		_producto.setMarca("Parmalat");
+		_producto.setCategoria(Categoria.DESCATEGORIZADO);
 		
 		// ejecución
 		boolean esValido;
 		try {
 			esValido = _producto.valida();
+			fail("El nombre del producto es obligatorio.");
+		} catch (ValidacionException e) {
+			esValido = false;
+			// verificación
+			List<ErrorValidacion> listaExcepciones = e.getListaExcepciones();
+			assertThat(1, is(listaExcepciones.size()));
+		}
+		
+		// verificación
+		assertThat(esValido, is(Boolean.FALSE));
+	}
+	
+	@Test
+	public void valida_producto_sin_codigo(){
+		// preparación
+		_producto.setNombre("Leche");
+		_producto.setMarca("Parmalat");
+		_producto.setCategoria(Categoria.DESCATEGORIZADO);
+		
+		// ejecución
+		boolean esValido;
+		try {
+			esValido = _producto.valida();
+			fail("El código del producto es obligatorio.");
+		} catch (ValidacionException e) {
+			esValido = false;
+			// verificación
+			List<ErrorValidacion> listaExcepciones = e.getListaExcepciones();
+			assertThat(1, is(listaExcepciones.size()));
+		}
+		
+		// verificación
+		assertThat(esValido, is(Boolean.FALSE));
+	}
+	
+	@Test
+	public void valida_producto_sin_categoria(){
+		// preparación
+		_producto.setNombre("Leche");
+		_producto.setCodigo("cod1");
+		_producto.setMarca("Parmalat");
+		
+		// ejecución
+		boolean esValido;
+		try {
+			esValido = _producto.valida();
+			fail("La categoría del producto es obligatoria.");
 		} catch (ValidacionException e) {
 			esValido = false;
 			// verificación

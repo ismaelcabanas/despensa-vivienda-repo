@@ -15,7 +15,7 @@ import org.openqa.selenium.WebDriver;
 public abstract class AbstractProductosIT extends AbstractBaseIT{
 
 	private static final String[] PROPS_PRODUCTO = {"/org/icabanas/despensa/web/actions/catalogos/productos/messages.properties","/global.properties"};
-	private static final String[] DATASET = {"/data/marcas.xml","/data/productos.xml"};
+	private static final String[] DATASET = {"/data/categorias.xml", "/data/marcas.xml","/data/productos.xml"};
 	
 	protected AltaProductoPage page = null;
 	
