@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+
+    <head>
+        <link href="../concordion.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+		
+        <h1>Alta de categoría existente</h1>
+
+        <p>
+        	El sistema debería validar que se da de alta una categoría existente.                         
+        </p>                	                    
+        
+        <p>
+        	Supongamos que en el sistema existe la siguiente categoría:
+        	
+        	<table concordion:execute="creaCategoria(#nombreCategoria)">
+				<tr><th concordion:set="#nombreCategoria">Categoría</th></tr>
+			    <tr><td>Lácteos</td></tr>
+			</table>                           
+        </p>                	                    
+        
+        <div class="example">
+            <h3>Alta de una categoría con un nombre que ya existe.</h3>
+            <p>            	
+                Dado un usuario autenticado como adminstrador del sistema,<br/> 
+                cuando da de alta una categoría con nombre <b concordion:set="#nombre">Lácteos</b>, 
+                entonces el sistema <span concordion:execute="#resultado = registra(#nombre)"></span> <span concordion:assertFalse="#resultado">genera una excepción de validación</span> y no almacena la entidad en el repositorio de datos.
+            </p>            
+        </div>
+                
+    </body>
+</html>
+

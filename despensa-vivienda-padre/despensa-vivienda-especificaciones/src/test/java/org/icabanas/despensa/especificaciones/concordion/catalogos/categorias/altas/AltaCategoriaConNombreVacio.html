@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+
+    <head>
+        <link href="../concordion.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+		
+        <h1>Alta de categoría con nombre vacío</h1>
+
+        <p>
+        	Como administrador del sistema, el sistema no debería dar de alta una categoría con nombre vacío.        
+        </p>
+
+                	            
+        <div class="example">
+            <h3>Alta de una categoría con nombre vacío.</h3>
+            <p>            	
+                Dado un usuario autenticado como adminstrador del sistema,<br/> 
+                cuando da de alta una categoría con nombre <b>vacío</b><SPAN concordion:set="#nombre"></SPAN>, <br/>
+                entonces el sistema <span concordion:execute="#resultado = registra(#nombre)"></span> <span concordion:assertFalse="#resultado">genera una excepción de validación</span> y no almacena la entidad en el repositorio de datos.
+            </p>            
+        </div>
+        
+    </body>
+</html>
+

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+
+    <head>
+        <link href="../concordion.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+		
+        <h1>Gestión de altas del catálogo de categorías</h1>
+
+        <p>
+        	Como administrador del sistema, quiero gestionar las altas de las entidades Categoria.                        
+        </p>
+
+                
+        <div class="example">
+            <h3>Alta de una categoría.</h3>
+            <p>            	
+                Dado un usuario autenticado como adminstrador del sistema,<br/> 
+                cuando da de alta la categoría <b concordion:set="#nombre">Carnicería</b>,<br/> 
+                el sistema <span concordion:execute="#resultado = registra(#nombre)">persiste</span> la categoría que queda almacenada en el repositorio de almacenamiento.               
+            </p>
+            <table concordion:verifyRows="#categoria : #resultado">
+            	<tr>
+                	<th concordion:assertEquals="#categoria.nombre">Nombre</th>
+                 	<th concordion:assertEquals="#categoria.descripcion">Descripción</th>
+             	</tr>
+             	<tr>
+                 	<td>Carnicería</td>
+                 	<td></td>
+             	</tr>
+         	</table>            
+        </div>        
+        
+        <div class="example">
+            <h3>Alta de una categoría con descripción.</h3>
+            <p>            	
+                Dado un usuario autenticado como adminstrador del sistema,<br/> 
+                cuando da de alta la categoría <b concordion:set="#nombre">Lácteos</b> con descripción <b concordion:set="#descripcion">Productos lácteos</b>, <br/>
+                el sistema <span concordion:execute="#resultado = registra(#nombre, #descripcion)">persiste</span> la categoría que queda almacenada en el repositorio de almacenamiento.
+            </p>        
+            
+            <table concordion:verifyRows="#categoria : #resultado">
+            	<tr>
+                	<th concordion:assertEquals="#categoria.nombre">Nombre</th>
+                 	<th concordion:assertEquals="#categoria.descripcion">Descripción</th>
+             	</tr>
+             	<tr>
+                 	<td>Lácteos</td>
+                 	<td>Productos lácteos</td>
+             	</tr>
+         	</table>                       
+        </div>
+
+		<h2>Escenarios alternativos</h2>
+		
+		<ul>	
+	        <li><a concordion:run="concordion" href="AltaCategoriaConNombreVacio.html">Alta de categoría con nombre vacío</a></li>	        
+	        <li><a concordion:run="concordion" href="AltaCategoriaConNombreNulo.html">Alta de categoría con nombre nulo</a></li>
+	        <li><a concordion:run="concordion" href="AltaCategoriaExistente.html">Alta de categoría existente</a></li>
+	    </ul>	           
+                
+    </body>
+</html>
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+
+    <head>
+        <link href="../concordion.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+
+        <h1>Gestión de altas del catálogo de categorías</h1>
+
+        <p>
+        	Como administrador del sistema, quiero gestionar las altas de las entidades Categoria.                        
+        </p>
+
+                
+        <div class="example">
+            <h3>Alta de una categoría.</h3>
+            <p>            	
+                Dado un usuario autenticado como adminstrador del sistema,<br/> 
+                cuando da de alta la categoría <b concordion:set="#nombre">Lacteos</b>, 
+                entonces el sistema <span concordion:execute="#resultado = registra(#nombre)">registra</span> la categoría que <span concordion:assertTrue="#resultado">queda almacenada</span> en el repositorio de datos.
+            </p>            
+        </div>        
+        
+        <div class="example">
+            <h3>Alta de una categoría con nombre de categoría vacío.</h3>
+            <p>            	
+                Dado un usuario autenticado como adminstrador del sistema,<br/> 
+                cuando da de alta una categoría con nombre <b>vacío</b><SPAN concordion:set="#nombre"></SPAN>, 
+                entonces el sistema <span concordion:execute="#resultado = registra(#nombre)">genera</span> una <span concordion:assertFalse="#resultado">excepción de validación</span> y <span concordion:assertFalse="#resultado">no almacena la entidad</span> en el repositorio de datos.
+            </p>            
+        </div>
+        
+        <div class="example">
+            <h3>Alta de una categoría con nombre nulo.</h3>
+            <p>            	
+                Dado un usuario autenticado como adminstrador del sistema,<br/> 
+                cuando da de alta una categoría con nombre <b concordion:set="#nombre">null</b>, 
+                entonces el sistema <span concordion:execute="#resultado = registra(#nombre)">genera</span> una <span concordion:assertFalse="#resultado">excepción de validación</span> y <span concordion:assertFalse="#resultado">no almacena la entidad</span> en el repositorio de datos.
+            </p>            
+        </div>
+                
+    </body>
+</html>
+

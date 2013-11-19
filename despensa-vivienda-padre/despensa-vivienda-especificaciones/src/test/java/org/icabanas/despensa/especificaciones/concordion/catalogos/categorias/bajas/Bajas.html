@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+
+    <head>
+        <link href="../concordion.css" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body>
+		
+        <h1>Gestión de bajas del catálogo de categorías</h1>
+
+        <p>
+        	Como administrador del sistema, quiero gestionar las bajas de las entidades Categoria.                        
+        </p>
+
+         <p>
+        	Supongamos que en el sistema existen las siguientes categorías:
+        	
+        	<table concordion:execute="creaCategoria(#nombreCategoria)">
+				<tr><th concordion:set="#nombreCategoria">Categoría</th></tr>
+			    <tr><td>Lácteos</td></tr>
+			    <tr><td>Frutas y Verduras</td></tr>
+			</table>                           
+        </p>  
+               
+        <div class="example">
+            <h3>Baja de una categoría.</h3>
+            <p>            	
+                Cuando se da de baja la categoría <b concordion:set="#nombre">Lácteos</b>,
+                ésta <span concordion:execute="#resultado = baja(#nombre) ">se da de baja</span> 
+                del repositorio de almacenamiento y en el sistema quedarían las siguientes categorías:                
+            </p>
+            <table concordion:verifyRows="#categoria : #resultado">
+            	<tr>
+                	<th concordion:assertEquals="#categoria.nombre">Nombre</th>
+             	</tr>
+             	<tr>
+                 	<td>Frutas y Verduras</td>
+             	</tr>
+         	</table> 		        
+        </div> 	
+      </body>  
+</html>
+

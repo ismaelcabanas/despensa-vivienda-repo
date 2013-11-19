@@ -1,0 +1,8 @@
+<!--?xml version='1.0' encoding='UTF-8'?--> 
+
+<dataset>
+	<CATEGORIA id="1" nombre="Lácteos" />
+	<CATEGORIA id="2" nombre="Pescadería" />
+	<CATEGORIA id="3" nombre="Carnicería" />
+	<CATEGORIA id="4" nombre="Embutidos" />
+</dataset>
